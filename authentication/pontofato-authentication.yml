@@ -1,0 +1,39 @@
+generated: '2026-09-05'
+method: searched
+source: https://pontofato.com/api/ (self-described index, auth block) + openapi/pontofato-openapi-original.json
+docs: https://pontofato.com/api/
+note: >-
+  The OpenAPI declares no securitySchemes — the auth model is documented in the self-described
+  /api/ index instead. Most of the surface is public with no key and no signup. There is no
+  account system: the prepaid credit token is a bearer of balance, not an identity
+  ("Não é conta: é portador de saldo").
+summary:
+  types: [none, http-bearer, x402-payment]
+  api_key_in: []
+  oauth2_flows: []
+schemes:
+  - name: public
+    type: none
+    description: >-
+      Público — CEP lookup, unidades, proximo, buscar, raio, empresas, discovery documents and
+      the MCP server all answer anonymously.
+  - name: credito
+    type: http
+    scheme: bearer
+    bearerFormat: cred_ token (or X-Credito header)
+    description: >-
+      Prepaid credit token issued by POST /api/credito (paid once via x402); debits per call on
+      paid routes (vizinhanca beyond free quota). Sent as Authorization Bearer cred_… or the
+      X-Credito header.
+  - name: operator
+    type: http
+    scheme: bearer
+    bearerFormat: METRICS_TOKEN
+    description: Operator-only token unlocking the financial block on GET /api/metrics.
+  - name: x402
+    type: payment
+    scheme: x402
+    description: >-
+      Per-request machine payment. Paid routes answer HTTP 402 with an x402 v1 accepts[]
+      challenge (USDC on Base); pay and repeat the request with the X-PAYMENT header. Probed
+      live on POST /api/credito?usd=1.

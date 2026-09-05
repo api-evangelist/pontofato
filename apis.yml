@@ -4,9 +4,11 @@ description: >-
   latitude/longitude, joined with Receita Federal business establishments. Offers proximity/radius search, full-text
   street search, and companies-at-location lookups. Agent-first provider with a hosted MCP server and llms.txt.
 url: https://raw.githubusercontent.com/api-evangelist/pontofato/refs/heads/main/apis.yml
+image: https://pontofato.com/icon.svg
 created: '2026-09-05'
 modified: '2026-09-05'
 specificationVersion: '0.21'
+position: Producing
 tags:
   - Brazilian CEP
   - address geocoding
@@ -28,6 +30,7 @@ apis:
     description: >-
       REST/JSON API for CEP-to-CNEFE point resolution, address search, proximity/radius queries, and Receita Federal
       business lookups. Includes a hosted MCP server and agent-native discovery artifacts.
+    image: https://pontofato.com/icon.svg
     humanURL: https://pontofato.com/api/
     baseURL: https://pontofato.com
     tags:
@@ -49,17 +52,78 @@ apis:
     properties:
       - type: OpenAPI
         url: https://pontofato.com/openapi.json
+      - type: OpenAPI
+        url: openapi/pontofato-openapi-original.json
       - type: Documentation
         url: https://pontofato.com/api/
+      - type: APIReference
+        url: https://pontofato.com/llms-full.txt
       - type: LLMsTxt
         url: https://pontofato.com/llms.txt
       - type: MCPServer
         url: https://pontofato.com/mcp
+      - type: ToolCrosswalk
+        url: mcp/pontofato-tool-crosswalk.yml
 maintainers:
   - FN: PontoFato
-    url: mailto:contato@pontofato.com
+    email: contato@pontofato.com
+    url: https://pontofato.com/
 generated:
   by: apis.io/add
   model: claude-opus-4-8
   confidence: 97
   at: '2026-09-05T11:44:50.404Z'
+common:
+- type: AgenticAccess
+  url: agentic-access/pontofato-agentic-access.yml
+- type: VulnerabilityDisclosure
+  url: security/pontofato-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/pontofato-domain-security.yml
+- type: Security
+  url: https://pontofato.com/.well-known/security.txt
+- type: MCPServer
+  url: mcp/pontofato-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/pontofato-tool-crosswalk.yml
+- type: LLMsTxt
+  url: llms/pontofato-llms.txt
+- type: WellKnown
+  url: well-known/pontofato-well-known.yml
+- type: SecurityTxt
+  url: well-known/pontofato-security.txt
+- type: Overlay
+  url: overlays/pontofato-openapi-overlay.yaml
+- type: Conformance
+  url: conformance/pontofato-conformance.yml
+- type: ErrorCatalog
+  url: errors/pontofato-problem-types.yml
+- type: Authentication
+  url: authentication/pontofato-authentication.yml
+- type: Conventions
+  url: conventions/pontofato-conventions.yml
+- type: DataModel
+  url: data-model/pontofato-data-model.yml
+- type: Plans
+  url: plans/pontofato-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/pontofato-rate-limits.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Website
+  url: https://pontofato.com/
+- type: GettingStarted
+  url: https://pontofato.com/#agentes
+- type: Pricing
+  url: https://pontofato.com/#precos
+- type: Support
+  url: https://pontofato.com/#contato
+- type: TermsOfService
+  url: https://pontofato.com/termos
+- type: PrivacyPolicy
+  url: https://pontofato.com/privacidade
+x-enrichment:
+  date: '2026-09-05'
+  status: enriched
+  artifacts_added: 25
+  pass: local-v3

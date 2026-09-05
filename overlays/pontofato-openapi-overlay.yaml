@@ -1,0 +1,37 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for PontoFato
+  version: 1.0.0
+extends: openapi/pontofato-openapi-original.json
+x-provenance:
+  generated: '2026-09-05'
+  method: generated
+  source: openapi/pontofato-openapi-original.json
+actions:
+  - target: $.info
+    update:
+      x-apievangelist:
+        profiled: '2026-09-05'
+        repo: https://github.com/api-evangelist/pontofato
+        mcp-server: https://pontofato.com/mcp
+        mcp-registry: com.pontofato/pontofato
+        llms-txt: https://pontofato.com/llms.txt
+        api-catalog: https://pontofato.com/.well-known/api-catalog
+        apis-json: https://pontofato.com/apis.json
+  - target: $.info
+    update:
+      x-monetization:
+        model: x402
+        network: base
+        asset: USDC
+        paid-operations:
+          - operationId: vizinhanca
+            price_usd: 0.05
+            free_quota: 10 calls/day/IP
+          - operationId: contact
+            price_usd: 0.10
+          - operationId: post_api_credito
+            note: prepaid credit top-up, packages of 1/5/10/25 USD
+  - target: $.paths['/api/vizinhanca'].get
+    update:
+      x-rate-limit-header: x-cota-gratis

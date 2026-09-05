@@ -1,0 +1,73 @@
+generated: '2026-09-05'
+method: searched
+status: published
+source: https://pontofato.com/mcp
+note: >-
+  First-party hosted MCP server on the same Worker as the REST API. Verified live: initialize
+  and tools/list both answered 200 anonymously (protocolVersion 2024-11-05, serverInfo
+  PontoFato/2d690e87). Registered in the official MCP registry as com.pontofato/pontofato
+  (status active, published 2026-09-05), with the domain-verification key served at
+  /.well-known/mcp-registry-auth. Paid tools answer HTTP 402 with an x402 accepts[] challenge
+  (USDC on Base) — pay and repeat with X-PAYMENT, or send a prepaid Authorization Bearer
+  cred_ token.
+registry:
+  name: com.pontofato/pontofato
+  url: https://registry.modelcontextprotocol.io/v0/servers?search=pontofato
+  status: active
+  published: '2026-09-05'
+deployment:
+  mode: remote
+  endpoint: https://pontofato.com/mcp
+  auth: none
+  verified: probed
+server:
+  name: PontoFato
+  version: 2d690e87
+  transport: http
+  protocol_version: 2024-11-05
+  url: https://pontofato.com/mcp
+tools:
+  - name: api_index
+    description: Índice da API PontoFato.
+    source_operation: openapi/pontofato-openapi-original.json#api_index
+  - name: health
+    description: Saúde da origem e cobertura por UF.
+    source_operation: openapi/pontofato-openapi-original.json#health
+  - name: cep
+    description: Pontos CNEFE de um CEP, com lat/lon IBGE.
+    required: [cep]
+    source_operation: openapi/pontofato-openapi-original.json#cep
+  - name: proximo
+    description: Ponto CNEFE mais perto de lat/lon.
+    required: [lat, lon]
+    source_operation: openapi/pontofato-openapi-original.json#proximo
+  - name: buscar
+    description: Busca textual de logradouro.
+    required: [q]
+    source_operation: openapi/pontofato-openapi-original.json#buscar
+  - name: unidades
+    description: Unidades CNEFE de um CEP (apartamento, loja), com complemento e espécie. Paginado.
+    required: [cep]
+    source_operation: openapi/pontofato-openapi-original.json#unidades
+  - name: empresas
+    description: Estabelecimentos da Receita neste CEP.
+    required: [cep]
+    source_operation: openapi/pontofato-openapi-original.json#empresas
+  - name: raio
+    description: CEPs a N metros de um ponto (cep ou lat/lon), com distância e pontos CNEFE. Grátis.
+    source_operation: openapi/pontofato-openapi-original.json#raio
+  - name: vizinhanca
+    description: >-
+      Empresas ativas, abertas e baixadas num raio em metros, por CNAE, com aberturas recentes
+      e distância. 10/dia grátis por IP, depois $0.05 via x402 ou crédito pré-pago.
+    source_operation: openapi/pontofato-openapi-original.json#vizinhanca
+  - name: contact
+    description: Contato agente ($0.10 x402) ou humano (Turnstile).
+    required: [name, email, message]
+    source_operation: openapi/pontofato-openapi-original.json#contact
+x-evidence:
+  fetched: '2026-09-05'
+  url: https://pontofato.com/mcp
+  method_probe: tools/list
+  http_status: 200
+  content_type: application/json

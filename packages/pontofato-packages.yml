@@ -1,0 +1,9 @@
+generated: '2026-09-05'
+method: searched
+packages: []
+note: >-
+  Checked npm (registry.npmjs.org search: no results) and PyPI (pypi.org/pypi/pontofato/json:
+  404) on 2026-09-05; the site, llms.txt and docs advertise no client libraries. The provider
+  is deliberately SDK-less: consumption is plain HTTP, the hosted MCP server
+  (https://pontofato.com/mcp), and one-click MCP install deeplinks for Cursor and VS Code on
+  the homepage. An honest zero — not an unchecked gap.

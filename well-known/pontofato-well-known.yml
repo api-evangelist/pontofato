@@ -1,0 +1,46 @@
+generated: '2026-09-05'
+method: searched
+note: >-
+  Probed with a negative control (/.well-known/pontofato-negative-control-a91f3c2b.json -> 404),
+  so the 200s below are real documents, not a catch-all. The provider self-documents its
+  well-known surface at GET /.well-known/{arquivo}: api-catalog (RFC 9727), security.txt
+  (RFC 9116), mcp-registry-auth (official MCP registry domain-verification key) and apis.json.
+path_echo_control: passed
+hosts:
+  - host: https://pontofato.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        file: pontofato-security.txt
+      - path: /.well-known/api-catalog
+        status: 200
+        file: pontofato-api-catalog.json
+      - path: /.well-known/apis.json
+        status: 200
+        file: pontofato-apis-json.json
+      - path: /apis.json
+        status: 200
+        file: pontofato-apis-json.json
+      - path: /.well-known/mcp-registry-auth
+        status: 200
+        file: pontofato-mcp-registry-auth.txt
+      - path: /apis.yml
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/ucp.json
+        status: 404
+      - path: /.well-known/acp.json
+        status: 404
+      - path: /.well-known/aauth-resource.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404

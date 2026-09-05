@@ -1,0 +1,54 @@
+generated: '2026-09-05'
+method: searched
+source: https://pontofato.com/api/ (conventions block) + openapi/pontofato-openapi-original.json + live probes 2026-09-05
+authentication:
+  style: public by default; bearer credit token / x402 per-request payment on paid routes
+  cross_link: authentication/pontofato-authentication.yml
+format: JSON on /api/*; text/markdown on /okf/*; linkset+json on the api-catalog
+cors: 'Access-Control-Allow-Origin: * on agent routes (documented and observed)'
+pagination:
+  style: mixed
+  params:
+    - operation: unidades
+      params: [limit, offset]
+      note: limit capped at 50, offset 0-based
+    - operation: empresas
+      params: [page]
+      note: 0-based page against the CNPJ origin, 50 per page
+field_expansion: none documented
+request_tracing: no request-id header documented
+versioning:
+  scheme: build-hash
+  current: 2d690e87
+  note: >-
+    No versioned paths and no version header; info.version is the deployed build hash. The
+    provider's own "parity" convention says UI/API changes ship with apidocs + skill + MCP in
+    the same PR.
+error_envelope:
+  shape: '{"ok": false, "code": "<slug>", "error": "<message pt-BR>"}'
+  cross_link: errors/pontofato-problem-types.yml
+rate_limit_signaling:
+  header: x-cota-gratis
+  observed: '1/10 (probed live on GET /api/vizinhanca)'
+  exhaustion_status: 402 with x402 accepts[]
+  cross_link: rate-limits/pontofato-rate-limits.yml
+idempotency:
+  coverage: none
+  note: >-
+    No Idempotency-Key or replay-protection mechanism is documented anywhere on the write
+    surface (POST /api/contact, POST /api/credito). The x402 payment itself carries a
+    maxTimeoutSeconds window but the API documents no replay guard for a repeated X-PAYMENT
+    submission.
+reversibility:
+  grade: none
+  writes:
+    - operation: contact
+      reversal: none documented (a sent message cannot be recalled)
+    - operation: post_api_credito
+      reversal: >-
+        none documented — no refund, void or reversal operation exists for a prepaid credit
+        purchase, and the docs state no window. GET /api/credito shows balance and statement
+        only.
+  note: >-
+    The read surface (15 of 18 operations) is na for reversibility/idempotency/dry-run. No
+    dry-run mode is documented for the three writes.

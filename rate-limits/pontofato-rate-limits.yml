@@ -1,0 +1,20 @@
+generated: '2026-09-05'
+method: probed
+source: https://pontofato.com/llms.txt + live probe of GET /api/vizinhanca 2026-09-05
+limit_count: 1
+limits:
+  - scope: per-IP, per-day
+    endpoint: GET /api/vizinhanca
+    window: 1 day
+    limit: 10
+    overage: $0.05 per call via x402, or prepaid credit (Authorization Bearer cred_ token)
+    headers:
+      - name: x-cota-gratis
+        observed: '1/10'
+        note: consumed/total free quota, returned on every vizinhanca response (probed live)
+    exhaustion_status: 402
+    exhaustion_body: x402 v1 challenge with accepts[] (pay and repeat with X-PAYMENT)
+notes: >-
+  The free routes (cep, unidades, proximo, buscar, raio, empresas) publish no quota in v1.
+  An undocumented anti-abuse throttle was observed on POST /api/contact: rapid resubmission
+  returns 400 {"code":"too_fast"}. Rate-limit exhaustion signals 402 (payment), not 429.

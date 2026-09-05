@@ -1,0 +1,82 @@
+generated: '2026-09-05'
+method: derived
+source: live MCP tools/list (https://pontofato.com/mcp) + openapi/pontofato-openapi-original.json
+note: >-
+  The MCP server dispatches every tool against the same public REST API on the same Worker
+  (its own instructions say so), and tool names equal operationIds one-for-one, so every
+  binding is exact. The live tools/list was fetched anonymously — nothing here is gated.
+surfaces:
+  openapi: openapi/pontofato-openapi-original.json
+  mcp:
+    url: https://pontofato.com/mcp
+    gated: false
+  graphql: null
+coverage:
+  tools_named: 10
+  tools_bound: 10
+  mcp_only: 0
+  rest_operations_total: 18
+  rest_operations_with_tool: 10
+crosswalk:
+  - tool: api_index
+    category: discovery
+    rest: [api_index]
+    binding: rest
+    confidence: high
+  - tool: health
+    category: operations
+    rest: [health]
+    binding: rest
+    confidence: high
+  - tool: cep
+    category: address-lookup
+    rest: [cep]
+    binding: rest
+    confidence: high
+  - tool: proximo
+    category: geospatial
+    rest: [proximo]
+    binding: rest
+    confidence: high
+  - tool: buscar
+    category: address-lookup
+    rest: [buscar]
+    binding: rest
+    confidence: high
+  - tool: unidades
+    category: address-lookup
+    rest: [unidades]
+    binding: rest
+    confidence: high
+  - tool: empresas
+    category: business-registry
+    rest: [empresas]
+    binding: rest
+    confidence: high
+  - tool: raio
+    category: geospatial
+    rest: [raio]
+    binding: rest
+    confidence: high
+  - tool: vizinhanca
+    category: business-registry
+    rest: [vizinhanca]
+    binding: rest
+    confidence: high
+  - tool: contact
+    category: support
+    rest: [contact]
+    binding: rest
+    confidence: high
+mcp_only: []
+rest_only:
+  - capability: discovery documents
+    operations: [get_okf_by_arquivo, get_well_known_by_arquivo, get_apis_json]
+  - capability: MCP transport itself
+    operations: [post_mcp]
+  - capability: caller geolocation
+    operations: [get_api_local]
+  - capability: operator metrics
+    operations: [get_api_metrics]
+  - capability: prepaid credit (x402 top-up + balance)
+    operations: [post_api_credito, get_api_credito]

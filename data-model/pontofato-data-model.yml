@@ -1,0 +1,89 @@
+generated: '2026-09-05'
+method: derived
+source: openapi/pontofato-openapi-original.json
+entities:
+  - name: Cep
+    description: A CEP resolved to its CNEFE points, with a summary and coverage.
+    key: cep
+  - name: Ponto
+    description: One CNEFE census address point with IBGE lat/lon, espécie and edificação type.
+  - name: Unidades
+    description: Paginated CNEFE units (apartment, shop) of a CEP.
+  - name: Proximo
+    description: The CNEFE point nearest a lat/lon pair.
+  - name: Raio
+    description: CEPs within N meters of a center, each with distance and point count.
+  - name: CepNoRaio
+    description: One CEP inside a radius result.
+  - name: Empresas
+    description: Paginated Receita Federal establishments registered at a CEP.
+  - name: Empresa
+    description: One establishment — CNPJ, razão social, CNAE, situação cadastral.
+    key: cnpj
+  - name: Vizinhanca
+    description: Business activity in a radius — counts by CNAE, recent openings, closures.
+  - name: ContagemCnae
+    description: Active/opened counts for one CNAE code inside a neighborhood query.
+  - name: Abertura
+    description: A recently opened establishment with distance from the query center.
+  - name: Saude
+    description: Origin health and per-UF coverage.
+  - name: Cobertura
+    description: Which UFs the CNEFE base currently covers.
+  - name: Local
+    description: Caller's city/UF resolved at the Cloudflare edge.
+  - name: Metricas
+    description: 7-day operator metrics; financial block behind the operator token.
+relationships:
+  - from: Cep
+    to: Ponto
+    kind: has_many
+    via: pontos
+  - from: Cep
+    to: Resumo
+    kind: has_one
+    via: resumo
+  - from: Cep
+    to: Cobertura
+    kind: has_one
+    via: cobertura
+  - from: Resumo
+    to: EspecieContagem
+    kind: has_many
+    via: especies
+  - from: Unidades
+    to: Ponto
+    kind: has_many
+    via: items
+  - from: PaginaPonto
+    to: Ponto
+    kind: has_many
+    via: items
+  - from: Raio
+    to: CepNoRaio
+    kind: has_many
+    via: ceps
+  - from: Empresas
+    to: Empresa
+    kind: has_many
+    via: items
+  - from: Vizinhanca
+    to: ContagemCnae
+    kind: has_many
+    via: por_cnae
+  - from: Vizinhanca
+    to: Abertura
+    kind: has_many
+    via: amostra_abertas
+  - from: Saude
+    to: Cobertura
+    kind: has_one
+    via: cobertura
+  - from: Empresa
+    to: Cep
+    kind: belongs_to
+    via: cep (query join — Receita establishments are joined to the CNEFE CEP)
+notes: >-
+  Two upstream open-data sources meet at the CEP: IBGE CNEFE (Censo 2022, fixed snapshot,
+  111M address points) provides the geometry; Receita Federal CNPJ open data (reloaded twice
+  weekly, dump_date returned on vizinhanca responses) provides the establishments.

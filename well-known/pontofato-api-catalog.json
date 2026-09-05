@@ -1,0 +1,76 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://pontofato.com/.well-known/api-catalog",
+      "item": [
+        {
+          "href": "https://pontofato.com/api/"
+        },
+        {
+          "href": "https://pontofato.com/mcp"
+        }
+      ],
+      "describedby": [
+        {
+          "href": "https://pontofato.com/apis.json",
+          "type": "application/json",
+          "title": "APIs.json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://pontofato.com/api/",
+      "service-desc": [
+        {
+          "href": "https://pontofato.com/openapi.json",
+          "type": "application/json",
+          "title": "OpenAPI 3"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://pontofato.com/llms.txt",
+          "type": "text/plain",
+          "title": "Guia para agentes de IA"
+        },
+        {
+          "href": "https://pontofato.com/llms-full.txt",
+          "type": "text/plain",
+          "title": "Referência completa da API"
+        },
+        {
+          "href": "https://pontofato.com/okf/index.md",
+          "type": "text/markdown",
+          "title": "Bundle OKF"
+        }
+      ]
+    },
+    {
+      "anchor": "https://pontofato.com/mcp",
+      "service-desc": [
+        {
+          "href": "https://pontofato.com/mcp",
+          "type": "application/json",
+          "title": "MCP (streamable HTTP)"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://pontofato.com/llms.txt",
+          "type": "text/plain",
+          "title": "Guia para agentes de IA"
+        },
+        {
+          "href": "https://pontofato.com/llms-full.txt",
+          "type": "text/plain",
+          "title": "Referência completa da API"
+        },
+        {
+          "href": "https://pontofato.com/okf/index.md",
+          "type": "text/markdown",
+          "title": "Bundle OKF"
+        }
+      ]
+    }
+  ]
+}

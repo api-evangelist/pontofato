@@ -1,0 +1,64 @@
+generated: '2026-09-05'
+method: searched
+source: https://pontofato.com/ (probed 2026-09-05; every entry below carries the URL + status observed)
+standards:
+  - id: openapi-3.1
+    conforms: true
+    evidence: https://pontofato.com/openapi.json — 200, parses as OpenAPI 3.1.0 with 17 paths
+  - id: apis-json
+    conforms: true
+    evidence: >-
+      https://pontofato.com/apis.json and /.well-known/apis.json — 200, specificationVersion
+      0.19 with apis[] + properties[]
+  - id: rfc9727-api-catalog
+    conforms: true
+    evidence: >-
+      https://pontofato.com/.well-known/api-catalog — 200, RFC 9727 linkset with service-desc
+      (OpenAPI) and service-doc (llms.txt, llms-full.txt, OKF) anchors for the API and the MCP
+  - id: rfc9116-security-txt
+    conforms: true
+    evidence: >-
+      https://pontofato.com/.well-known/security.txt — 200 with Contact, Expires,
+      Preferred-Languages, Canonical
+  - id: llms-txt
+    conforms: true
+    evidence: https://pontofato.com/llms.txt — 200; llms-full.txt also served
+  - id: mcp-streamable-http
+    conforms: true
+    evidence: >-
+      POST https://pontofato.com/mcp — 200 on anonymous initialize + tools/list
+      (protocolVersion 2024-11-05); listed active in the official MCP registry as
+      com.pontofato/pontofato with /.well-known/mcp-registry-auth key served
+  - id: x402
+    conforms: true
+    evidence: >-
+      POST https://pontofato.com/api/credito?usd=1 — probed live 402 with x402Version 1 body,
+      accepts[] scheme exact on network base (chain 8453), USDC asset
+      0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913; paid routes documented at $0.05 (vizinhanca)
+      and $0.10 (contact)
+  - id: okf-0.1
+    conforms: true
+    evidence: https://pontofato.com/okf/index.md — 200, Open Knowledge Format v0.1 bundle (index/sobre/api/faq)
+  - id: pagination
+    conforms: true
+    evidence: limit/offset on unidades and page on empresas in the OpenAPI
+  - id: oauth2
+    conforms: false
+    evidence: no securitySchemes in the spec; auth is public + bearer credit/operator tokens + x402
+  - id: oidc
+    conforms: false
+    evidence: /.well-known/openid-configuration — 404
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: errors use a custom {ok, code, error} envelope, not application/problem+json
+  - id: idempotency
+    conforms: false
+    evidence: no idempotency-key mechanism documented on the write surface
+domain_standard:
+  - id: x402
+    note: >-
+      Machine-payments domain standard for agent-facing APIs — declared in the contract itself:
+      the OpenAPI 402 responses on vizinhanca/contact/credito describe the x402 accepts[] flow,
+      and the live 402 challenge carries x402Version 1. This is the provider's market signature
+      (agent-native pay-per-request), verified by probe, not prose.
+    evidence: POST https://pontofato.com/api/credito?usd=1 -> HTTP 402, x402Version 1

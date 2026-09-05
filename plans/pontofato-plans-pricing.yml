@@ -1,0 +1,31 @@
+generated: '2026-09-05'
+method: searched
+source: https://pontofato.com/#precos
+plan_count: 3
+note: >-
+  No signup and no account tiers — pricing is per-request. "Sem cadastro: o 402 traz as duas
+  portas, x402 ou crédito pré-pago." Free routes have no quota in v1; the one metered route
+  carries a daily free quota per IP, then pay-per-call. Prices confirmed identically on
+  /llms.txt, /okf/api.md and the live 402 body.
+plans:
+  - name: Free
+    price: 0
+    currency: USD
+    billing: none
+    includes: >-
+      CEP lookup, unidades, endereço/busca, ponto mais próximo, raio de CEPs and empresas por
+      CEP — no quota in v1. Vizinhança por raio: 10 calls/day/IP free.
+  - name: Pay-per-request (x402)
+    price: 0.05
+    currency: USDC
+    billing: per-request via x402 (HTTP 402 + X-PAYMENT, network base)
+    includes: >-
+      GET /api/vizinhanca beyond the 10/day free quota at $0.05/call; POST /api/contact (agent
+      path) at $0.10/call.
+  - name: Prepaid credit
+    price: '1 | 5 | 10 | 25'
+    currency: USD (paid in USDC via x402)
+    billing: prepaid balance, debited per call
+    includes: >-
+      POST /api/credito?usd={1,5,10,25} pays once via x402 and returns a bearer cred_ token
+      valid across all the provider's products; GET /api/credito returns balance + statement.

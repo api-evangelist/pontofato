@@ -1,0 +1,66 @@
+generated: '2026-09-05'
+method: derived
+source: openapi/pontofato-openapi-original.json
+format: custom-envelope
+envelope: >-
+  Errors return a JSON body shaped {"ok": false, "code": "<slug>", "error": "<message pt-BR>"}
+  (observed live on POST /api/contact -> 400 code "too_fast"). Not RFC 9457
+  application/problem+json. Paid routes return HTTP 402 with an x402 v1 body:
+  {"x402Version": 1, "error": "X-PAYMENT header required", "accepts": [...]} — see
+  conformance/ and rate-limits/.
+problems:
+  - status: 400
+    title: CEP inválido (tamanho ou 00000000)
+    source_operation: openapi/pontofato-openapi-original.json#cep
+  - status: 400
+    title: lat ou lon ausentes ou fora da faixa
+    source_operation: openapi/pontofato-openapi-original.json#proximo
+  - status: 400
+    title: Termo de busca curto demais (mínimo 3 caracteres)
+    source_operation: openapi/pontofato-openapi-original.json#buscar
+  - status: 400
+    title: Sem centro (cep ou lat+lon), CEP/coordenada inválidos ou raio fora de 1-2000
+    source_operation: openapi/pontofato-openapi-original.json#raio
+  - status: 400
+    title: Centro ausente, cnae fora de 2/5/7 dígitos ou desde fora de 1900-hoje
+    source_operation: openapi/pontofato-openapi-original.json#vizinhanca
+  - status: 400
+    title: Validação do contato (observed live code "too_fast" on rapid resubmission)
+    source_operation: openapi/pontofato-openapi-original.json#contact
+  - status: 400
+    title: Pacote de crédito fora da lista (1, 5, 10 ou 25 dólares)
+    source_operation: openapi/pontofato-openapi-original.json#post_api_credito
+  - status: 401
+    title: Token de operador errado
+    source_operation: openapi/pontofato-openapi-original.json#get_api_metrics
+  - status: 401
+    title: Sem token de crédito ou token desconhecido
+    source_operation: openapi/pontofato-openapi-original.json#get_api_credito
+  - status: 402
+    title: Cota diária grátis esgotada — pague $0.05 por x402 (accepts[]) ou crédito pré-pago
+    remediation: Pay via x402 and repeat with X-PAYMENT, or send Authorization Bearer cred_ token.
+    source_operation: openapi/pontofato-openapi-original.json#vizinhanca
+  - status: 402
+    title: 'Contato de agente: pague $0.10 e repita com X-PAYMENT'
+    source_operation: openapi/pontofato-openapi-original.json#contact
+  - status: 402
+    title: Sem pagamento — o corpo traz accepts[] do x402 (probed live, x402Version 1)
+    source_operation: openapi/pontofato-openapi-original.json#post_api_credito
+  - status: 403
+    title: Turnstile inválido (contato humano)
+    source_operation: openapi/pontofato-openapi-original.json#contact
+  - status: 404
+    title: CEP bem-formado fora da base; resposta lista a cobertura por UF
+    source_operation: openapi/pontofato-openapi-original.json#cep
+  - status: 404
+    title: Nada na cobertura perto do ponto
+    source_operation: openapi/pontofato-openapi-original.json#proximo
+  - status: 404
+    title: Arquivo fora do bundle OKF
+    source_operation: openapi/pontofato-openapi-original.json#get_okf_by_arquivo
+  - status: 503
+    title: Origem sqlite fora / nenhuma UF montada
+    source_operation: openapi/pontofato-openapi-original.json#health
+  - status: 503
+    title: API de CNPJ indisponível
+    source_operation: openapi/pontofato-openapi-original.json#empresas

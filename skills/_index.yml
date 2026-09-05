@@ -1,0 +1,15 @@
+generated: '2026-09-05'
+method: generated
+skills:
+  - file: pontofato-cep-to-coordinates.md
+    name: Resolve a Brazilian CEP to official IBGE coordinates
+    api: openapi/pontofato-openapi-original.json
+    operations: [cep, unidades, buscar, proximo]
+  - file: pontofato-companies-at-location.md
+    name: Find companies at and around a Brazilian location
+    api: openapi/pontofato-openapi-original.json
+    operations: [empresas, raio, vizinhanca]
+  - file: pontofato-pay-with-x402.md
+    name: Pay for PontoFato calls with x402 or prepaid credit
+    api: openapi/pontofato-openapi-original.json
+    operations: [vizinhanca, contact, post_api_credito, get_api_credito]
