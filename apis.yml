@@ -1,0 +1,65 @@
+name: PontoFato
+description: >-
+  Brazilian address/location-intelligence API mapping CEP (postal code) or address to IBGE CNEFE census points with
+  latitude/longitude, joined with Receita Federal business establishments. Offers proximity/radius search, full-text
+  street search, and companies-at-location lookups. Agent-first provider with a hosted MCP server and llms.txt.
+url: https://raw.githubusercontent.com/api-evangelist/pontofato/refs/heads/main/apis.yml
+created: '2026-09-05'
+modified: '2026-09-05'
+specificationVersion: '0.21'
+tags:
+  - Brazilian CEP
+  - address geocoding
+  - IBGE CNEFE
+  - geospatial
+  - latitude/longitude
+  - CNPJ
+  - Receita Federal
+  - business registry
+  - location intelligence
+  - proximity search
+  - radius search
+  - open government data
+  - agent-native
+  - MCP
+  - x402 micropayments
+apis:
+  - name: PontoFato API
+    description: >-
+      REST/JSON API for CEP-to-CNEFE point resolution, address search, proximity/radius queries, and Receita Federal
+      business lookups. Includes a hosted MCP server and agent-native discovery artifacts.
+    humanURL: https://pontofato.com/api/
+    baseURL: https://pontofato.com
+    tags:
+      - Brazilian CEP
+      - address geocoding
+      - IBGE CNEFE
+      - geospatial
+      - latitude/longitude
+      - CNPJ
+      - Receita Federal
+      - business registry
+      - location intelligence
+      - proximity search
+      - radius search
+      - open government data
+      - agent-native
+      - MCP
+      - x402 micropayments
+    properties:
+      - type: OpenAPI
+        url: https://pontofato.com/openapi.json
+      - type: Documentation
+        url: https://pontofato.com/api/
+      - type: LLMsTxt
+        url: https://pontofato.com/llms.txt
+      - type: MCPServer
+        url: https://pontofato.com/mcp
+maintainers:
+  - FN: PontoFato
+    url: mailto:contato@pontofato.com
+generated:
+  by: apis.io/add
+  model: claude-opus-4-8
+  confidence: 97
+  at: '2026-09-05T11:44:50.404Z'
