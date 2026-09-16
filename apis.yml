@@ -13,6 +13,22 @@ tags:
   - Brazilian CEP
   - address geocoding
   - IBGE CNEFE
+  - Geospatial
+  - latitude/longitude
+  - CNPJ
+  - Receita Federal
+  - Business Registry
+  - Location Intelligence
+  - proximity search
+  - radius search
+  - Open Government Data
+  - agent-native
+  - MCP
+  - x402-micropayments
+tags_raw:
+  - Brazilian CEP
+  - address geocoding
+  - IBGE CNEFE
   - geospatial
   - latitude/longitude
   - CNPJ
@@ -26,44 +42,294 @@ tags:
   - MCP
   - x402 micropayments
 apis:
-  - name: PontoFato API
-    description: >-
-      REST/JSON API for CEP-to-CNEFE point resolution, address search, proximity/radius queries, and Receita Federal
-      business lookups. Includes a hosted MCP server and agent-native discovery artifacts.
-    image: https://pontofato.com/icon.svg
-    humanURL: https://pontofato.com/api/
-    baseURL: https://pontofato.com
-    tags:
-      - Brazilian CEP
-      - address geocoding
-      - IBGE CNEFE
-      - geospatial
-      - latitude/longitude
-      - CNPJ
-      - Receita Federal
-      - business registry
-      - location intelligence
-      - proximity search
-      - radius search
-      - open government data
-      - agent-native
-      - MCP
-      - x402 micropayments
-    properties:
-      - type: OpenAPI
-        url: https://pontofato.com/openapi.json
-      - type: OpenAPI
-        url: openapi/pontofato-openapi-original.json
-      - type: Documentation
-        url: https://pontofato.com/api/
-      - type: APIReference
-        url: https://pontofato.com/llms-full.txt
-      - type: LLMsTxt
-        url: https://pontofato.com/llms.txt
-      - type: MCPServer
-        url: https://pontofato.com/mcp
-      - type: ToolCrosswalk
-        url: mcp/pontofato-tool-crosswalk.yml
+- aid: pontofato:pontofato-apis-json-api
+  name: PontoFato Apis.json API
+  description: The Apis.json API from PontoFato — 1 operation(s) for apis.json.
+  humanURL: https://pontofato.com/api/
+  baseURL: https://pontofato.com
+  tags:
+  - Apis.json
+  properties:
+  - type: OpenAPI
+    url: openapi/pontofato-apis-json-api-openapi.yml
+  - type: Documentation
+    url: https://pontofato.com/api/
+  - type: APIReference
+    url: https://pontofato.com/llms-full.txt
+  - type: LLMsTxt
+    url: https://pontofato.com/llms.txt
+  - type: ToolCrosswalk
+    url: mcp/pontofato-tool-crosswalk.yml
+- aid: pontofato:pontofato-buscar-api
+  name: PontoFato Buscar API
+  description: The Buscar API from PontoFato — 1 operation(s) for buscar.
+  humanURL: https://pontofato.com/api/
+  baseURL: https://pontofato.com
+  tags:
+  - Buscar
+  properties:
+  - type: OpenAPI
+    url: openapi/pontofato-buscar-api-openapi.yml
+  - type: Documentation
+    url: https://pontofato.com/api/
+  - type: APIReference
+    url: https://pontofato.com/llms-full.txt
+  - type: LLMsTxt
+    url: https://pontofato.com/llms.txt
+  - type: ToolCrosswalk
+    url: mcp/pontofato-tool-crosswalk.yml
+- aid: pontofato:pontofato-cep-api
+  name: PontoFato Cep API
+  description: The Cep API from PontoFato — 2 operation(s) for cep.
+  humanURL: https://pontofato.com/api/
+  baseURL: https://pontofato.com
+  tags:
+  - Cep
+  properties:
+  - type: OpenAPI
+    url: openapi/pontofato-cep-api-openapi.yml
+  - type: Documentation
+    url: https://pontofato.com/api/
+  - type: APIReference
+    url: https://pontofato.com/llms-full.txt
+  - type: LLMsTxt
+    url: https://pontofato.com/llms.txt
+  - type: ToolCrosswalk
+    url: mcp/pontofato-tool-crosswalk.yml
+- aid: pontofato:pontofato-contact-api
+  name: PontoFato Contact API
+  description: The Contact API from PontoFato — 1 operation(s) for contact.
+  humanURL: https://pontofato.com/api/
+  baseURL: https://pontofato.com
+  tags:
+  - Contact
+  properties:
+  - type: OpenAPI
+    url: openapi/pontofato-contact-api-openapi.yml
+  - type: Documentation
+    url: https://pontofato.com/api/
+  - type: APIReference
+    url: https://pontofato.com/llms-full.txt
+  - type: LLMsTxt
+    url: https://pontofato.com/llms.txt
+  - type: ToolCrosswalk
+    url: mcp/pontofato-tool-crosswalk.yml
+- aid: pontofato:pontofato-credito-api
+  name: PontoFato Credito API
+  description: The Credito API from PontoFato — 1 operation(s) for credito.
+  humanURL: https://pontofato.com/api/
+  baseURL: https://pontofato.com
+  tags:
+  - Credito
+  properties:
+  - type: OpenAPI
+    url: openapi/pontofato-credito-api-openapi.yml
+  - type: Documentation
+    url: https://pontofato.com/api/
+  - type: APIReference
+    url: https://pontofato.com/llms-full.txt
+  - type: LLMsTxt
+    url: https://pontofato.com/llms.txt
+  - type: ToolCrosswalk
+    url: mcp/pontofato-tool-crosswalk.yml
+- aid: pontofato:pontofato-empresas-api
+  name: PontoFato Empresas API
+  description: The Empresas API from PontoFato — 1 operation(s) for empresas.
+  humanURL: https://pontofato.com/api/
+  baseURL: https://pontofato.com
+  tags:
+  - Empresas
+  properties:
+  - type: OpenAPI
+    url: openapi/pontofato-empresas-api-openapi.yml
+  - type: Documentation
+    url: https://pontofato.com/api/
+  - type: APIReference
+    url: https://pontofato.com/llms-full.txt
+  - type: LLMsTxt
+    url: https://pontofato.com/llms.txt
+  - type: ToolCrosswalk
+    url: mcp/pontofato-tool-crosswalk.yml
+- aid: pontofato:pontofato-health-api
+  name: PontoFato Health API
+  description: The Health API from PontoFato — 1 operation(s) for health.
+  humanURL: https://pontofato.com/api/
+  baseURL: https://pontofato.com
+  tags:
+  - Health
+  properties:
+  - type: OpenAPI
+    url: openapi/pontofato-health-api-openapi.yml
+  - type: Documentation
+    url: https://pontofato.com/api/
+  - type: APIReference
+    url: https://pontofato.com/llms-full.txt
+  - type: LLMsTxt
+    url: https://pontofato.com/llms.txt
+  - type: ToolCrosswalk
+    url: mcp/pontofato-tool-crosswalk.yml
+- aid: pontofato:pontofato-local-api
+  name: PontoFato Local API
+  description: The Local API from PontoFato — 1 operation(s) for local.
+  humanURL: https://pontofato.com/api/
+  baseURL: https://pontofato.com
+  tags:
+  - Local
+  properties:
+  - type: OpenAPI
+    url: openapi/pontofato-local-api-openapi.yml
+  - type: Documentation
+    url: https://pontofato.com/api/
+  - type: APIReference
+    url: https://pontofato.com/llms-full.txt
+  - type: LLMsTxt
+    url: https://pontofato.com/llms.txt
+  - type: ToolCrosswalk
+    url: mcp/pontofato-tool-crosswalk.yml
+- aid: pontofato:pontofato-mcp-api
+  name: PontoFato MCP API
+  description: The Mcp API from PontoFato — 1 operation(s) for mcp.
+  humanURL: https://pontofato.com/api/
+  baseURL: https://pontofato.com
+  tags:
+  - Mcp
+  properties:
+  - type: OpenAPI
+    url: openapi/pontofato-mcp-api-openapi.yml
+  - type: Documentation
+    url: https://pontofato.com/api/
+  - type: APIReference
+    url: https://pontofato.com/llms-full.txt
+  - type: LLMsTxt
+    url: https://pontofato.com/llms.txt
+  - type: ToolCrosswalk
+    url: mcp/pontofato-tool-crosswalk.yml
+- aid: pontofato:pontofato-metrics-api
+  name: PontoFato Metrics API
+  description: The Metrics API from PontoFato — 1 operation(s) for metrics.
+  humanURL: https://pontofato.com/api/
+  baseURL: https://pontofato.com
+  tags:
+  - Metrics
+  properties:
+  - type: OpenAPI
+    url: openapi/pontofato-metrics-api-openapi.yml
+  - type: Documentation
+    url: https://pontofato.com/api/
+  - type: APIReference
+    url: https://pontofato.com/llms-full.txt
+  - type: LLMsTxt
+    url: https://pontofato.com/llms.txt
+  - type: ToolCrosswalk
+    url: mcp/pontofato-tool-crosswalk.yml
+- aid: pontofato:pontofato-okf-api
+  name: PontoFato Okf API
+  description: The Okf API from PontoFato — 1 operation(s) for okf.
+  humanURL: https://pontofato.com/api/
+  baseURL: https://pontofato.com
+  tags:
+  - Okf
+  properties:
+  - type: OpenAPI
+    url: openapi/pontofato-okf-api-openapi.yml
+  - type: Documentation
+    url: https://pontofato.com/api/
+  - type: APIReference
+    url: https://pontofato.com/llms-full.txt
+  - type: LLMsTxt
+    url: https://pontofato.com/llms.txt
+  - type: ToolCrosswalk
+    url: mcp/pontofato-tool-crosswalk.yml
+- aid: pontofato:pontofato-pontofato-api
+  name: PontoFato Ponto Fato API
+  description: The PontoFato API from PontoFato — 1 operation(s) for pontofato.
+  humanURL: https://pontofato.com/api/
+  baseURL: https://pontofato.com
+  tags:
+  - PontoFato
+  properties:
+  - type: OpenAPI
+    url: openapi/pontofato-pontofato-api-openapi.yml
+  - type: Documentation
+    url: https://pontofato.com/api/
+  - type: APIReference
+    url: https://pontofato.com/llms-full.txt
+  - type: LLMsTxt
+    url: https://pontofato.com/llms.txt
+  - type: ToolCrosswalk
+    url: mcp/pontofato-tool-crosswalk.yml
+- aid: pontofato:pontofato-proximo-api
+  name: PontoFato Proximo API
+  description: The Proximo API from PontoFato — 1 operation(s) for proximo.
+  humanURL: https://pontofato.com/api/
+  baseURL: https://pontofato.com
+  tags:
+  - Proximo
+  properties:
+  - type: OpenAPI
+    url: openapi/pontofato-proximo-api-openapi.yml
+  - type: Documentation
+    url: https://pontofato.com/api/
+  - type: APIReference
+    url: https://pontofato.com/llms-full.txt
+  - type: LLMsTxt
+    url: https://pontofato.com/llms.txt
+  - type: ToolCrosswalk
+    url: mcp/pontofato-tool-crosswalk.yml
+- aid: pontofato:pontofato-raio-api
+  name: PontoFato Raio API
+  description: The Raio API from PontoFato — 1 operation(s) for raio.
+  humanURL: https://pontofato.com/api/
+  baseURL: https://pontofato.com
+  tags:
+  - Raio
+  properties:
+  - type: OpenAPI
+    url: openapi/pontofato-raio-api-openapi.yml
+  - type: Documentation
+    url: https://pontofato.com/api/
+  - type: APIReference
+    url: https://pontofato.com/llms-full.txt
+  - type: LLMsTxt
+    url: https://pontofato.com/llms.txt
+  - type: ToolCrosswalk
+    url: mcp/pontofato-tool-crosswalk.yml
+- aid: pontofato:pontofato-vizinhanca-api
+  name: PontoFato Vizinhanca API
+  description: The Vizinhanca API from PontoFato — 1 operation(s) for vizinhanca.
+  humanURL: https://pontofato.com/api/
+  baseURL: https://pontofato.com
+  tags:
+  - Vizinhanca
+  properties:
+  - type: OpenAPI
+    url: openapi/pontofato-vizinhanca-api-openapi.yml
+  - type: Documentation
+    url: https://pontofato.com/api/
+  - type: APIReference
+    url: https://pontofato.com/llms-full.txt
+  - type: LLMsTxt
+    url: https://pontofato.com/llms.txt
+  - type: ToolCrosswalk
+    url: mcp/pontofato-tool-crosswalk.yml
+- aid: pontofato:pontofato-well-known-api
+  name: PontoFato .well Known API
+  description: The .well Known API from PontoFato — 1 operation(s) for .well known.
+  humanURL: https://pontofato.com/api/
+  baseURL: https://pontofato.com
+  tags:
+  - .well Known
+  properties:
+  - type: OpenAPI
+    url: openapi/pontofato-well-known-api-openapi.yml
+  - type: Documentation
+    url: https://pontofato.com/api/
+  - type: APIReference
+    url: https://pontofato.com/llms-full.txt
+  - type: LLMsTxt
+    url: https://pontofato.com/llms.txt
+  - type: ToolCrosswalk
+    url: mcp/pontofato-tool-crosswalk.yml
 maintainers:
   - FN: PontoFato
     email: contato@pontofato.com
@@ -74,6 +340,8 @@ generated:
   confidence: 97
   at: '2026-09-05T11:44:50.404Z'
 common:
+- type: MCPServer
+  url: https://pontofato.com/mcp
 - type: AgenticAccess
   url: agentic-access/pontofato-agentic-access.yml
 - type: VulnerabilityDisclosure
