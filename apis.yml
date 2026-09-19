@@ -48,6 +48,8 @@ apis:
   humanURL: https://pontofato.com/api/
   baseURL: https://pontofato.com
   tags:
+  - APIs.json
+  tags_raw:
   - Apis.json
   properties:
   - type: OpenAPI
@@ -84,6 +86,8 @@ apis:
   humanURL: https://pontofato.com/api/
   baseURL: https://pontofato.com
   tags:
+  - CEP
+  tags_raw:
   - Cep
   properties:
   - type: OpenAPI
@@ -192,6 +196,8 @@ apis:
   humanURL: https://pontofato.com/api/
   baseURL: https://pontofato.com
   tags:
+  - MCP
+  tags_raw:
   - Mcp
   properties:
   - type: OpenAPI
