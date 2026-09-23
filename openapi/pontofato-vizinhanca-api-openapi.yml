@@ -1,0 +1,206 @@
+openapi: 3.2.0
+info:
+  title: PontoFato Vizinhanca API
+  version: 2d690e87
+  description: 'Ponto e fato de um lugar no Brasil. Índice: GET /api/.'
+servers:
+- url: https://pontofato.com
+tags:
+- name: Vizinhanca
+paths:
+  /api/vizinhanca:
+    get:
+      operationId: vizinhanca
+      summary: Empresas ativas, abertas e baixadas num raio em metros, por CNAE, com as…
+      description: 'Devolve: { centro, raio_m, ceps, truncado, desde, base, cnae, empresas, por_cnae[{cnae,descricao,ativas,abertas_desde}], amostra_abertas[{cnpj,cnpjFormatted,nome,razaoSocial,nomeFantasia,cnae,dataInicio,endereco,distancia_m}], lenta, fonte, _links }'
+      parameters:
+      - name: cep
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Centro = média dos pontos deste CEP. Alternativa a lat/lon.
+        example: '01310100'
+      - name: lat
+        in: query
+        required: false
+        schema:
+          type: number
+        description: Latitude do centro, se não vier `cep`.
+      - name: lon
+        in: query
+        required: false
+        schema:
+          type: number
+        description: Longitude do centro, se não vier `cep`.
+      - name: raio
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 500
+        description: Raio em metros, 1 a 2000.
+        example: 800
+      - name: cnae
+        in: query
+        required: false
+        schema:
+          type: string
+        description: 'Prefixo de CNAE: divisão (2 dígitos), classe (5) ou subclasse (7).'
+        example: '56'
+      - name: desde
+        in: query
+        required: false
+        schema:
+          type: string
+        description: 'Data ISO para “abriu/baixou desde”. Padrão: 90 dias antes da data da base (`base.dump_date`).'
+        example: '2026-02-01'
+      responses:
+        '200':
+          description: '{ centro, raio_m, ceps, truncado, desde, base, cnae, empresas, por_cnae[{cnae,descricao,ativas,abertas_desde}], amostra_abertas[{cnpj,cnpjFormatted,nome,razaoSocial,nomeFantasia,cnae,dataInicio,endereco,distancia_m}], lenta, fonte, _links }'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vizinhanca'
+        '400':
+          description: Centro ausente, CEP/coordenada/raio inválidos, `cnae` fora de 2/5/7 dígitos ou `desde` fora de 1900–hoje.
+        '402':
+          description: 'Cota diária grátis esgotada: pague $0.05 por x402 (`accepts[]`) ou mande crédito pré-pago (`Authorization: Bearer cred_…`).'
+        '404':
+          description: CEP fora da malha ou nenhum ponto no raio.
+        '503':
+          description: Origem sqlite ou API de CNPJ fora.
+      tags:
+      - Vizinhanca
+components:
+  schemas:
+    Abertura:
+      type: object
+      properties:
+        cnpj:
+          type: string
+          description: 14 dígitos.
+        cnpjFormatted:
+          type: string
+          description: CNPJ com pontuação.
+        nome:
+          type: string
+          description: Nome fantasia ou, na falta, razão social.
+          nullable: true
+        razaoSocial:
+          type: string
+          description: Razão social.
+          nullable: true
+        nomeFantasia:
+          type: string
+          description: Nome fantasia declarado na Receita, quando a empresa tem um.
+          nullable: true
+        cnae:
+          type: object
+          description: '`codigo` e `descricao` da atividade principal.'
+          nullable: true
+        dataInicio:
+          type: string
+          description: Data de início de atividade, ISO.
+        endereco:
+          type: object
+          description: '`tipoLogradouro`, `logradouro`, `numero`, `bairro`, `cep` formatado.'
+        distancia_m:
+          type: integer
+          description: Distância do centro ao CEP deste estabelecimento.
+          nullable: true
+      required:
+      - cnpj
+      - cnpjFormatted
+      - nome
+      - razaoSocial
+      - nomeFantasia
+      - cnae
+      - dataInicio
+      - endereco
+      - distancia_m
+      description: Um estabelecimento aberto desde `desde`, sem contato e sem sócio.
+    Vizinhanca:
+      type: object
+      properties:
+        centro:
+          type: object
+          description: '`lat`, `lon` e `cep` quando o centro veio de CEP.'
+        raio_m:
+          type: integer
+          description: Raio usado, em metros.
+        ceps:
+          type: integer
+          description: Quantos CEPs entraram na conta (teto 300).
+        truncado:
+          type: boolean
+          description: '`true` se o raio tinha mais de 300 CEPs.'
+        desde:
+          type: string
+          description: Data ISO de corte para abertas/baixadas.
+        base:
+          type: object
+          description: '`dump_date`: data do dump da Receita carregado — a janela padrão conta a partir dela.'
+        cnae:
+          type: string
+          description: Prefixo de CNAE aplicado, se houve.
+          nullable: true
+        empresas:
+          type: object
+          description: '`total`, `ativas`, `abertas_desde`, `baixadas_desde` (nulos quando `lenta`).'
+        por_cnae:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContagemCnae'
+          description: As 20 subclasses com mais ativas.
+        amostra_abertas:
+          type: array
+          items:
+            $ref: '#/components/schemas/Abertura'
+          description: As 50 aberturas mais recentes, com distância.
+        lenta:
+          type: boolean
+          description: '`true` quando alguma contagem estourou o teto de tempo e veio nula.'
+        fonte:
+          type: string
+          description: Sempre `cnefe-2022 + receita`.
+        _links:
+          type: object
+          description: '`self` e `raio` com o mesmo centro.'
+      required:
+      - centro
+      - raio_m
+      - ceps
+      - truncado
+      - desde
+      - base
+      - cnae
+      - empresas
+      - por_cnae
+      - amostra_abertas
+      - lenta
+      - fonte
+      - _links
+      description: 'O que a Receita sabe sobre os CEPs dentro do raio: contagens, classes e aberturas recentes.'
+    ContagemCnae:
+      type: object
+      properties:
+        cnae:
+          type: integer
+          description: Subclasse CNAE (7 dígitos).
+        descricao:
+          type: string
+          description: Descrição oficial da subclasse.
+          nullable: true
+        ativas:
+          type: integer
+          description: Estabelecimentos ativos neste CNAE no raio.
+        abertas_desde:
+          type: integer
+          description: Dos ativos, quantos abriram desde `desde`.
+      required:
+      - cnae
+      - descricao
+      - ativas
+      - abertas_desde
+      description: Uma classe de CNAE no raio.

@@ -1,0 +1,63 @@
+openapi: 3.2.0
+info:
+  title: PontoFato Contact API
+  version: 2d690e87
+  description: 'Ponto e fato de um lugar no Brasil. Índice: GET /api/.'
+servers:
+- url: https://pontofato.com
+tags:
+- name: Contact
+paths:
+  /api/contact:
+    post:
+      operationId: contact
+      summary: 'Contato: humano com Turnstile (grátis) ou agente com x402 $0.10'
+      description: 'Devolve: { ok, path }'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Nome (alias `nome`).
+                email:
+                  type: string
+                  description: E-mail de resposta.
+                message:
+                  type: string
+                  description: Mensagem (alias `mensagem`).
+                form_ts:
+                  type: integer
+                  description: Epoch ms de quando o form abriu (2s–12h).
+              required:
+              - name
+              - email
+              - message
+      responses:
+        '200':
+          description: '{ ok, path }'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                    description: Sempre `true` quando a mensagem foi aceita.
+                  path:
+                    type: string
+                    description: 'Caminho: humano com captcha ou agente pago.'
+                required:
+                - ok
+                - path
+        '400':
+          description: Validação.
+        '402':
+          description: 'Agente: pague $0.10 e repita com X-PAYMENT.'
+        '403':
+          description: Turnstile inválido.
+      tags:
+      - Contact

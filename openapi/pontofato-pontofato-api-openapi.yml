@@ -1,0 +1,58 @@
+openapi: 3.2.0
+info:
+  title: Ponto Fato API
+  version: 2d690e87
+  description: 'Ponto e fato de um lugar no Brasil. Índice: GET /api/.'
+servers:
+- url: https://pontofato.com
+tags:
+- name: PontoFato
+paths:
+  /api/:
+    get:
+      operationId: api_index
+      summary: 'Índice auto-descrito: cada rota, o que cobra e como plugar o MCP'
+      description: 'Devolve: { name, description, build, base_url, docs, endpoints, mcp_tools }'
+      responses:
+        '200':
+          description: '{ name, description, build, base_url, docs, endpoints, mcp_tools }'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    description: Nome do produto.
+                  description:
+                    type: string
+                    description: O que o produto faz.
+                  build:
+                    type: string
+                    description: Commit publicado.
+                  base_url:
+                    type: string
+                    description: Origem em que esta API está servindo.
+                  docs:
+                    type: object
+                    description: Links para llms.txt, OpenAPI, MCP e a UI.
+                  endpoints:
+                    type: array
+                    items:
+                      type: object
+                    description: Catálogo de endpoints.
+                  mcp_tools:
+                    type: array
+                    items:
+                      type: string
+                    description: Tools do MCP.
+                required:
+                - name
+                - description
+                - build
+                - base_url
+                - docs
+                - endpoints
+                - mcp_tools
+      tags:
+      - PontoFato

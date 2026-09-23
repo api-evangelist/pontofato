@@ -1,0 +1,128 @@
+openapi: 3.2.0
+info:
+  title: PontoFato Raio API
+  version: 2d690e87
+  description: 'Ponto e fato de um lugar no Brasil. Índice: GET /api/.'
+servers:
+- url: https://pontofato.com
+tags:
+- name: Raio
+paths:
+  /api/raio:
+    get:
+      operationId: raio
+      summary: CEPs a N metros de um ponto, com distância e quantos endereços CNEFE cada um…
+      description: 'Devolve: { centro, raio_m, total_pontos, ceps[{cep,cep8,uf,pontos,distancia_m,lat,lon}], truncado, fonte, _links }'
+      parameters:
+      - name: cep
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Centro = média dos pontos deste CEP. Alternativa a lat/lon.
+        example: '01310100'
+      - name: lat
+        in: query
+        required: false
+        schema:
+          type: number
+        description: Latitude do centro, se não vier `cep`.
+      - name: lon
+        in: query
+        required: false
+        schema:
+          type: number
+        description: Longitude do centro, se não vier `cep`.
+      - name: raio
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 500
+        description: Raio em metros, 1 a 2000.
+        example: 800
+      responses:
+        '200':
+          description: '{ centro, raio_m, total_pontos, ceps[{cep,cep8,uf,pontos,distancia_m,lat,lon}], truncado, fonte, _links }'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Raio'
+        '400':
+          description: Sem centro (`cep` ou `lat`+`lon`), CEP inválido, coordenada inválida ou raio fora de 1–2000.
+        '404':
+          description: CEP fora da malha, ou nenhum ponto CNEFE no raio; `cobertura` diz quais UFs existem.
+        '503':
+          description: Origem sqlite fora.
+      tags:
+      - Raio
+components:
+  schemas:
+    CepNoRaio:
+      type: object
+      properties:
+        cep:
+          type: string
+          description: CEP formatado `NNNNN-NNN`.
+        cep8:
+          type: string
+          description: CEP com 8 dígitos, pronto para `/api/empresas` e `/api/cep`.
+        uf:
+          type: string
+          description: UF do sqlite que respondeu.
+        pontos:
+          type: integer
+          description: Endereços CNEFE deste CEP dentro do raio.
+        distancia_m:
+          type: integer
+          description: Distância do centro ao ponto mais perto deste CEP, em metros.
+        lat:
+          type: number
+          description: Latitude média dos pontos deste CEP no raio.
+        lon:
+          type: number
+          description: Longitude média dos pontos deste CEP no raio.
+      required:
+      - cep
+      - cep8
+      - uf
+      - pontos
+      - distancia_m
+      - lat
+      - lon
+      description: 'Um CEP dentro do raio: quantos pontos CNEFE dele caem no círculo e a que distância começa.'
+    Raio:
+      type: object
+      properties:
+        centro:
+          type: object
+          description: '`lat`, `lon` e, quando o centro veio de CEP, `cep` formatado.'
+        raio_m:
+          type: integer
+          description: Raio usado, em metros.
+        total_pontos:
+          type: integer
+          description: Endereços CNEFE dentro do raio, somando os CEPs devolvidos.
+        ceps:
+          type: array
+          items:
+            $ref: '#/components/schemas/CepNoRaio'
+          description: Até 300 CEPs, ordenados por distância.
+        truncado:
+          type: boolean
+          description: '`true` se havia mais de 300 CEPs no raio — diminua o raio.'
+        fonte:
+          type: string
+          description: Sempre `cnefe-2022`.
+        _links:
+          type: object
+          description: '`self` e `vizinhanca` com o mesmo centro e raio.'
+      required:
+      - centro
+      - raio_m
+      - total_pontos
+      - ceps
+      - truncado
+      - fonte
+      - _links
+      description: CEPs a N metros de um ponto, do mais perto ao mais longe.

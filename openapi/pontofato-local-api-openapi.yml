@@ -1,0 +1,51 @@
+openapi: 3.2.0
+info:
+  title: PontoFato Local API
+  version: 2d690e87
+  description: 'Ponto e fato de um lugar no Brasil. Índice: GET /api/.'
+servers:
+- url: https://pontofato.com
+tags:
+- name: Local
+paths:
+  /api/local:
+    get:
+      operationId: get_api_local
+      summary: Cidade/UF de quem chama, pela borda Cloudflare. Sem cache
+      description: 'Devolve: { cidade, uf, pais, cep }'
+      responses:
+        '200':
+          description: '{ cidade, uf, pais, cep }'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Local'
+      tags:
+      - Local
+components:
+  schemas:
+    Local:
+      type: object
+      properties:
+        cidade:
+          type: string
+          description: Cidade que a borda atribuiu ao IP.
+          nullable: true
+        uf:
+          type: string
+          description: Região/UF da borda.
+          nullable: true
+        pais:
+          type: string
+          description: País ISO.
+          nullable: true
+        cep:
+          type: string
+          description: CEP aproximado da borda, se houver.
+          nullable: true
+      required:
+      - cidade
+      - uf
+      - pais
+      - cep
+      description: Geo de borda do visitante (Cloudflare). Nunca é cacheado.

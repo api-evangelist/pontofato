@@ -1,0 +1,69 @@
+openapi: 3.2.0
+info:
+  title: PontoFato Health API
+  version: 2d690e87
+  description: 'Ponto e fato de um lugar no Brasil. Índice: GET /api/.'
+servers:
+- url: https://pontofato.com
+tags:
+- name: Health
+paths:
+  /api/health:
+    get:
+      operationId: health
+      summary: Saúde da origem sqlite e cobertura por UF
+      description: 'Devolve: { ok, origem, cobertura{ufs,completa}, pontos, build }'
+      responses:
+        '200':
+          description: '{ ok, origem, cobertura{ufs,completa}, pontos, build }'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Saude'
+        '503':
+          description: Nenhuma UF montada na origem.
+      tags:
+      - Health
+components:
+  schemas:
+    Cobertura:
+      type: object
+      properties:
+        ufs:
+          type: array
+          items:
+            type: string
+          description: Siglas presentes no disco, em ordem.
+        completa:
+          type: boolean
+          description: '`true` só com as 27 UFs.'
+      required:
+      - ufs
+      - completa
+      description: Quais UFs já têm sqlite na origem.
+    Saude:
+      type: object
+      properties:
+        ok:
+          type: boolean
+          description: '`true` quando há pelo menos uma UF no disco.'
+        origem:
+          type: string
+          description: '`sqlite` ou `indisponivel`.'
+        cobertura:
+          allOf:
+          - $ref: '#/components/schemas/Cobertura'
+          description: UFs presentes.
+        pontos:
+          type: integer
+          description: Soma de linhas nas UFs montadas.
+        build:
+          type: string
+          description: Commit publicado neste Worker (`BUILD`).
+      required:
+      - ok
+      - origem
+      - cobertura
+      - pontos
+      - build
+      description: Se a origem sqlite está no ar e o quanto da malha já foi ingerida.

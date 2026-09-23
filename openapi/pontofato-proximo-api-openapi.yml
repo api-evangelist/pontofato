@@ -1,0 +1,134 @@
+openapi: 3.2.0
+info:
+  title: PontoFato Proximo API
+  version: 2d690e87
+  description: 'Ponto e fato de um lugar no Brasil. Índice: GET /api/.'
+servers:
+- url: https://pontofato.com
+tags:
+- name: Proximo
+paths:
+  /api/proximo:
+    get:
+      operationId: proximo
+      summary: Ponto CNEFE mais perto de um par lat/lon. Sem default para (0,0)
+      description: 'Ausente ou vazio NÃO vira zero. `(0,0)` é o golfo da Guiné e só entra se a pessoa mandou.
+
+        Devolve: { logradouro, bairro, cidade, uf, cep, lat, lon, numero, complemento, ibge, especie, especie_label, setor, estabelecimento, nv_geo, nv_geo_label, id_cnefe, distancia_m }'
+      parameters:
+      - name: lat
+        in: query
+        required: true
+        schema:
+          type: number
+        description: Latitude WGS84, −90 a 90.
+        example: '-15.7897'
+      - name: lon
+        in: query
+        required: true
+        schema:
+          type: number
+        description: Longitude WGS84, −180 a 180.
+        example: '-47.8793'
+      responses:
+        '200':
+          description: '{ logradouro, bairro, cidade, uf, cep, lat, lon, numero, complemento, ibge, especie, especie_label, setor, estabelecimento, nv_geo, nv_geo_label, id_cnefe, distancia_m }'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Proximo'
+        '400':
+          description: '`lat` ou `lon` ausentes ou fora da faixa.'
+        '404':
+          description: Nada na cobertura perto do ponto.
+      tags:
+      - Proximo
+components:
+  schemas:
+    Proximo:
+      type: object
+      properties:
+        logradouro:
+          type: string
+          description: Logradouro do ponto.
+        bairro:
+          type: string
+          description: Localidade.
+        cidade:
+          type: string
+          description: Município.
+        uf:
+          type: string
+          description: Sigla da unidade da federação.
+        cep:
+          type: string
+          description: CEP formatado.
+        lat:
+          type: number
+          description: Latitude.
+        lon:
+          type: number
+          description: Longitude.
+        numero:
+          type: string
+          description: Número no logradouro.
+          nullable: true
+        complemento:
+          type: string
+          description: Complemento CNEFE, se houver.
+          nullable: true
+        ibge:
+          type: string
+          description: Código IBGE do município.
+          nullable: true
+        especie:
+          type: string
+          description: Código da espécie CNEFE.
+          nullable: true
+        especie_label:
+          type: string
+          description: Rótulo IBGE da espécie.
+          nullable: true
+        setor:
+          type: string
+          description: Setor censitário.
+          nullable: true
+        estabelecimento:
+          type: string
+          description: Nome do estabelecimento, se a espécie tiver.
+          nullable: true
+        nv_geo:
+          type: string
+          description: Nível de geocodificação.
+          nullable: true
+        nv_geo_label:
+          type: string
+          description: O que o nível de geo significa.
+          nullable: true
+        id_cnefe:
+          type: string
+          description: '`COD_UNICO_ENDERECO`.'
+          nullable: true
+        distancia_m:
+          type: integer
+          description: Distância aproximada em metros.
+      required:
+      - logradouro
+      - bairro
+      - cidade
+      - uf
+      - cep
+      - lat
+      - lon
+      - numero
+      - complemento
+      - ibge
+      - especie
+      - especie_label
+      - setor
+      - estabelecimento
+      - nv_geo
+      - nv_geo_label
+      - id_cnefe
+      - distancia_m
+      description: Ponto CNEFE mais perto do par lat/lon.

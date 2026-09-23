@@ -1,0 +1,426 @@
+openapi: 3.2.0
+info:
+  title: PontoFato Cep API
+  version: 2d690e87
+  description: 'Ponto e fato de um lugar no Brasil. Índice: GET /api/.'
+servers:
+- url: https://pontofato.com
+tags:
+- name: Cep
+paths:
+  /api/cep/{cep}:
+    get:
+      operationId: cep
+      summary: Pontos CNEFE de um CEP, com lat/lon IBGE — não é chute de mapa
+      description: 'Devolve: { cep, pontos[{cep,logradouro,numero,complemento,bairro,cidade,uf,lat,lon,ibge,especie,especie_label,tipo_edificacao,tipo_edificacao_codigo,estabelecimento,estabelecimentos,especies,setor,distrito,subdistrito,quadra,face,nv_geo,nv_geo_label,finalidade,indicador_estab,indicador_const,id_cnefe,tipo_logradouro,titulo_logradouro,nome_logradouro,modificador,unidades,complementos,_links,_origem}], resumo{address_count,edificios,bairro,cidade,uf,ibge,lat,lon,especies}, fonte, cobertura{ufs,completa}, _links }'
+      parameters:
+      - name: cep
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '{ cep, pontos[{cep,logradouro,numero,complemento,bairro,cidade,uf,lat,lon,ibge,especie,especie_label,tipo_edificacao,tipo_edificacao_codigo,estabelecimento,estabelecimentos,especies,setor,distrito,subdistrito,quadra,face,nv_geo,nv_geo_label,finalidade,indicador_estab,indicador_const,id_cnefe,tipo_logradouro,titulo_logradouro,nome_logradouro,modificador,unidades,complementos,_links,_origem}], resumo{address_count,edificios,bairro,cidade,uf,ibge,lat,lon,especies}, fonte, cobertura{ufs,completa}, _links }'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cep'
+        '400':
+          description: CEP inválido (tamanho ou `00000000`).
+        '404':
+          description: CEP bem-formado fora da base; `cobertura` diz quais UFs já existem.
+        '503':
+          description: Origem sqlite fora.
+      tags:
+      - Cep
+  /api/cep/{cep}/unidades:
+    get:
+      operationId: unidades
+      summary: Unidades CNEFE de um CEP, com complemento, espécie e id — paginado
+      description: 'O lookup do CEP agrupa por logradouro+número. Esta rota devolve cada unidade (apartamento, loja) com o fato CNEFE. Sem `logradouro`/`numero`, pagina o CEP inteiro.
+
+        Devolve: { cep, items[{cep,logradouro,numero,complemento,bairro,cidade,uf,lat,lon,ibge,especie,especie_label,tipo_edificacao,tipo_edificacao_codigo,estabelecimento,estabelecimentos,especies,setor,distrito,subdistrito,quadra,face,nv_geo,nv_geo_label,finalidade,indicador_estab,indicador_const,id_cnefe,tipo_logradouro,titulo_logradouro,nome_logradouro,modificador,unidades,complementos,_links,_origem}], total, limit, offset, hasMore, cobertura{ufs,completa}, _links }'
+      parameters:
+      - name: cep
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: logradouro
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Logradouro exatamente como no lookup (tipo + nome).
+      - name: numero
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Número do edifício no CNEFE.
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 50
+        description: Itens por página, teto 50.
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+        description: Deslocamento 0-based.
+      responses:
+        '200':
+          description: '{ cep, items[{cep,logradouro,numero,complemento,bairro,cidade,uf,lat,lon,ibge,especie,especie_label,tipo_edificacao,tipo_edificacao_codigo,estabelecimento,estabelecimentos,especies,setor,distrito,subdistrito,quadra,face,nv_geo,nv_geo_label,finalidade,indicador_estab,indicador_const,id_cnefe,tipo_logradouro,titulo_logradouro,nome_logradouro,modificador,unidades,complementos,_links,_origem}], total, limit, offset, hasMore, cobertura{ufs,completa}, _links }'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unidades'
+        '400':
+          description: CEP inválido.
+        '404':
+          description: CEP fora da malha, ou o logradouro+número não existe nele.
+      tags:
+      - Cep
+components:
+  schemas:
+    Unidades:
+      type: object
+      properties:
+        cep:
+          type: string
+          description: CEP formatado.
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Ponto'
+          description: Unidades desta página (complemento, espécie, id CNEFE).
+        total:
+          type: integer
+          description: Quantas unidades batem o filtro.
+        limit:
+          type: integer
+          description: Teto desta página.
+        offset:
+          type: integer
+          description: Deslocamento pedido.
+        hasMore:
+          type: boolean
+          description: '`true` se ainda há unidade depois desta página.'
+        cobertura:
+          allOf:
+          - $ref: '#/components/schemas/Cobertura'
+          description: UFs ingeridas agora.
+        _links:
+          type: object
+          description: '`self` desta página e `cep` do lookup.'
+      required:
+      - cep
+      - items
+      - total
+      - limit
+      - offset
+      - hasMore
+      - cobertura
+      - _links
+      description: Unidades CNEFE de um CEP (ou de um logradouro+número), paginadas.
+    Cobertura:
+      type: object
+      properties:
+        ufs:
+          type: array
+          items:
+            type: string
+          description: Siglas presentes no disco, em ordem.
+        completa:
+          type: boolean
+          description: '`true` só com as 27 UFs.'
+      required:
+      - ufs
+      - completa
+      description: Quais UFs já têm sqlite na origem.
+    Ponto:
+      type: object
+      properties:
+        cep:
+          type: string
+          description: CEP formatado da unidade ou do edifício.
+          nullable: true
+        logradouro:
+          type: string
+          description: Tipo + nome do logradouro, já juntados.
+        numero:
+          type: string
+          description: Número no logradouro.
+          nullable: true
+        complemento:
+          type: string
+          description: Complementos do CNEFE, se houver.
+          nullable: true
+        bairro:
+          type: string
+          description: Localidade/bairro no cadastro.
+        cidade:
+          type: string
+          description: Município IBGE.
+        uf:
+          type: string
+          description: Sigla da unidade da federação.
+        lat:
+          type: number
+          description: Latitude WGS84 do ponto.
+          nullable: true
+        lon:
+          type: number
+          description: Longitude WGS84 do ponto.
+          nullable: true
+        ibge:
+          type: string
+          description: Código IBGE do município.
+          nullable: true
+        especie:
+          type: string
+          description: Código da espécie CNEFE (`1`–`8`).
+          nullable: true
+        especie_label:
+          type: string
+          description: Rótulo IBGE da espécie.
+          nullable: true
+        tipo_edificacao:
+          type: string
+          description: Casa, apartamento, vila — `COD_TIPO_ESPECIE`.
+          nullable: true
+        tipo_edificacao_codigo:
+          type: string
+          description: Código `101`–`104`.
+          nullable: true
+        estabelecimento:
+          type: string
+          description: Nome do estabelecimento, quando a espécie tem.
+          nullable: true
+        estabelecimentos:
+          type: array
+          items:
+            type: string
+          description: Nomes distintos no edifício (amostra).
+          nullable: true
+        especies:
+          type: array
+          items:
+            $ref: '#/components/schemas/EspecieContagem'
+          description: Mistura de espécies neste logradouro+número.
+          nullable: true
+        setor:
+          type: string
+          description: Setor censitário.
+          nullable: true
+        distrito:
+          type: string
+          description: Código de distrito IBGE.
+          nullable: true
+        subdistrito:
+          type: string
+          description: Código de subdistrito IBGE.
+          nullable: true
+        quadra:
+          type: string
+          description: Número da quadra no setor.
+          nullable: true
+        face:
+          type: string
+          description: Número da face da quadra.
+          nullable: true
+        nv_geo:
+          type: string
+          description: Nível de geocodificação (`1`–`6`).
+          nullable: true
+        nv_geo_label:
+          type: string
+          description: O que o nível de geo significa.
+          nullable: true
+        finalidade:
+          type: string
+          description: Residencial, não residencial, misto ou indeterminado.
+          nullable: true
+        indicador_estab:
+          type: string
+          description: Único ou múltiplo estabelecimento no endereço.
+          nullable: true
+        indicador_const:
+          type: string
+          description: Único ou múltiplo em construção/reforma.
+          nullable: true
+        id_cnefe:
+          type: string
+          description: '`COD_UNICO_ENDERECO` da unidade (só no detalhe).'
+          nullable: true
+        tipo_logradouro:
+          type: string
+          description: Tipo (RUA, AVENIDA…).
+          nullable: true
+        titulo_logradouro:
+          type: string
+          description: Título (DOUTOR…), se houver.
+          nullable: true
+        nome_logradouro:
+          type: string
+          description: Nome do logradouro sem o tipo.
+          nullable: true
+        modificador:
+          type: string
+          description: Modificador do número (SN, KM…).
+          nullable: true
+        unidades:
+          type: integer
+          description: Quantas unidades CNEFE neste logradouro+número (apartamentos, salas).
+        complementos:
+          type: integer
+          description: Complementos distintos no edifício.
+          nullable: true
+        _links:
+          type: object
+          description: '`unidades` absoluto para o detalhe paginado.'
+          nullable: true
+        _origem:
+          type: string
+          description: UF do sqlite que respondeu.
+      required:
+      - cep
+      - logradouro
+      - numero
+      - complemento
+      - bairro
+      - cidade
+      - uf
+      - lat
+      - lon
+      - ibge
+      - especie
+      - especie_label
+      - tipo_edificacao
+      - tipo_edificacao_codigo
+      - estabelecimento
+      - estabelecimentos
+      - especies
+      - setor
+      - distrito
+      - subdistrito
+      - quadra
+      - face
+      - nv_geo
+      - nv_geo_label
+      - finalidade
+      - indicador_estab
+      - indicador_const
+      - id_cnefe
+      - tipo_logradouro
+      - titulo_logradouro
+      - nome_logradouro
+      - modificador
+      - unidades
+      - complementos
+      - _links
+      - _origem
+      description: 'Um endereço CNEFE: número, coordenada IBGE e o fato que veio no CSV.'
+    EspecieContagem:
+      type: object
+      properties:
+        codigo:
+          type: string
+          description: Código IBGE da espécie (`1`–`8`).
+          nullable: true
+        label:
+          type: string
+          description: 'Rótulo: domicílio particular, ensino, saúde…'
+          nullable: true
+        n:
+          type: integer
+          description: Quantas unidades nesta espécie.
+      required:
+      - codigo
+      - label
+      - n
+      description: Quantas unidades CNEFE de uma espécie no recorte.
+    Cep:
+      type: object
+      properties:
+        cep:
+          type: string
+          description: CEP formatado `NNNNN-NNN`.
+        pontos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Ponto'
+          description: Endereços distintos neste CEP (teto na origem).
+        resumo:
+          allOf:
+          - $ref: '#/components/schemas/Resumo'
+          description: Unidades, edifícios, espécies, bairro, cidade, UF e centroide.
+        fonte:
+          type: string
+          description: Sempre `cnefe-2022` neste produto.
+        cobertura:
+          allOf:
+          - $ref: '#/components/schemas/Cobertura'
+          description: UFs ingeridas agora.
+        _links:
+          type: object
+          description: '`self`, `empresas` e `unidades` absolutos.'
+      required:
+      - cep
+      - pontos
+      - resumo
+      - fonte
+      - cobertura
+      - _links
+      description: Pontos CNEFE de um CEP, com resumo e cobertura.
+    Resumo:
+      type: object
+      properties:
+        address_count:
+          type: integer
+          description: Unidades CNEFE no CEP (não é o número de prédios).
+        edificios:
+          type: integer
+          description: Logradouro+número distintos no CEP.
+        bairro:
+          type: string
+          description: Bairro mais frequente na amostra.
+        cidade:
+          type: string
+          description: Município IBGE.
+        uf:
+          type: string
+          description: Sigla da unidade da federação.
+        ibge:
+          type: string
+          description: Código IBGE do município.
+          nullable: true
+        lat:
+          type: number
+          description: Latitude média dos edifícios devolvidos.
+          nullable: true
+        lon:
+          type: number
+          description: Longitude média dos edifícios devolvidos.
+          nullable: true
+        especies:
+          type: array
+          items:
+            $ref: '#/components/schemas/EspecieContagem'
+          description: Unidades por espécie no CEP inteiro.
+      required:
+      - address_count
+      - edificios
+      - bairro
+      - cidade
+      - uf
+      - ibge
+      - lat
+      - lon
+      - especies
+      description: 'Síntese do CEP: quantos pontos, quantos edifícios, onde fica.'

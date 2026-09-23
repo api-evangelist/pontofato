@@ -1,0 +1,20 @@
+openapi: 3.2.0
+info:
+  title: PontoFato MCP API
+  version: 2d690e87
+  description: 'Ponto e fato de um lugar no Brasil. Índice: GET /api/.'
+servers:
+- url: https://pontofato.com
+tags:
+- name: MCP
+paths:
+  /mcp:
+    post:
+      operationId: post_mcp
+      summary: MCP Streamable HTTP — as tools deste catálogo, despachadas neste mesmo Worker
+      description: 'Devolve: JSON-RPC 2.0 (`initialize`, `tools/list`, `tools/call`).'
+      responses:
+        '200':
+          description: JSON-RPC 2.0 (`initialize`, `tools/list`, `tools/call`).
+      tags:
+      - MCP
