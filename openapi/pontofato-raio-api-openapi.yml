@@ -58,39 +58,6 @@ paths:
       - Raio
 components:
   schemas:
-    CepNoRaio:
-      type: object
-      properties:
-        cep:
-          type: string
-          description: CEP formatado `NNNNN-NNN`.
-        cep8:
-          type: string
-          description: CEP com 8 dígitos, pronto para `/api/empresas` e `/api/cep`.
-        uf:
-          type: string
-          description: UF do sqlite que respondeu.
-        pontos:
-          type: integer
-          description: Endereços CNEFE deste CEP dentro do raio.
-        distancia_m:
-          type: integer
-          description: Distância do centro ao ponto mais perto deste CEP, em metros.
-        lat:
-          type: number
-          description: Latitude média dos pontos deste CEP no raio.
-        lon:
-          type: number
-          description: Longitude média dos pontos deste CEP no raio.
-      required:
-      - cep
-      - cep8
-      - uf
-      - pontos
-      - distancia_m
-      - lat
-      - lon
-      description: 'Um CEP dentro do raio: quantos pontos CNEFE dele caem no círculo e a que distância começa.'
     Raio:
       type: object
       properties:
@@ -126,3 +93,36 @@ components:
       - fonte
       - _links
       description: CEPs a N metros de um ponto, do mais perto ao mais longe.
+    CepNoRaio:
+      type: object
+      properties:
+        cep:
+          type: string
+          description: CEP formatado `NNNNN-NNN`.
+        cep8:
+          type: string
+          description: CEP com 8 dígitos, pronto para `/api/empresas` e `/api/cep`.
+        uf:
+          type: string
+          description: UF do sqlite que respondeu.
+        pontos:
+          type: integer
+          description: Endereços CNEFE deste CEP dentro do raio.
+        distancia_m:
+          type: integer
+          description: Distância do centro ao ponto mais perto deste CEP, em metros.
+        lat:
+          type: number
+          description: Latitude média dos pontos deste CEP no raio.
+        lon:
+          type: number
+          description: Longitude média dos pontos deste CEP no raio.
+      required:
+      - cep
+      - cep8
+      - uf
+      - pontos
+      - distancia_m
+      - lat
+      - lon
+      description: 'Um CEP dentro do raio: quantos pontos CNEFE dele caem no círculo e a que distância começa.'

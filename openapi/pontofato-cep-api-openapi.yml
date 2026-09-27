@@ -88,46 +88,6 @@ paths:
       - Cep
 components:
   schemas:
-    Unidades:
-      type: object
-      properties:
-        cep:
-          type: string
-          description: CEP formatado.
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Ponto'
-          description: Unidades desta página (complemento, espécie, id CNEFE).
-        total:
-          type: integer
-          description: Quantas unidades batem o filtro.
-        limit:
-          type: integer
-          description: Teto desta página.
-        offset:
-          type: integer
-          description: Deslocamento pedido.
-        hasMore:
-          type: boolean
-          description: '`true` se ainda há unidade depois desta página.'
-        cobertura:
-          allOf:
-          - $ref: '#/components/schemas/Cobertura'
-          description: UFs ingeridas agora.
-        _links:
-          type: object
-          description: '`self` desta página e `cep` do lookup.'
-      required:
-      - cep
-      - items
-      - total
-      - limit
-      - offset
-      - hasMore
-      - cobertura
-      - _links
-      description: Unidades CNEFE de um CEP (ou de um logradouro+número), paginadas.
     Cobertura:
       type: object
       properties:
@@ -143,6 +103,39 @@ components:
       - ufs
       - completa
       description: Quais UFs já têm sqlite na origem.
+    Cep:
+      type: object
+      properties:
+        cep:
+          type: string
+          description: CEP formatado `NNNNN-NNN`.
+        pontos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Ponto'
+          description: Endereços distintos neste CEP (teto na origem).
+        resumo:
+          allOf:
+          - $ref: '#/components/schemas/Resumo'
+          description: Unidades, edifícios, espécies, bairro, cidade, UF e centroide.
+        fonte:
+          type: string
+          description: Sempre `cnefe-2022` neste produto.
+        cobertura:
+          allOf:
+          - $ref: '#/components/schemas/Cobertura'
+          description: UFs ingeridas agora.
+        _links:
+          type: object
+          description: '`self`, `empresas` e `unidades` absolutos.'
+      required:
+      - cep
+      - pontos
+      - resumo
+      - fonte
+      - cobertura
+      - _links
+      description: Pontos CNEFE de um CEP, com resumo e cobertura.
     Ponto:
       type: object
       properties:
@@ -345,39 +338,46 @@ components:
       - label
       - n
       description: Quantas unidades CNEFE de uma espécie no recorte.
-    Cep:
+    Unidades:
       type: object
       properties:
         cep:
           type: string
-          description: CEP formatado `NNNNN-NNN`.
-        pontos:
+          description: CEP formatado.
+        items:
           type: array
           items:
             $ref: '#/components/schemas/Ponto'
-          description: Endereços distintos neste CEP (teto na origem).
-        resumo:
-          allOf:
-          - $ref: '#/components/schemas/Resumo'
-          description: Unidades, edifícios, espécies, bairro, cidade, UF e centroide.
-        fonte:
-          type: string
-          description: Sempre `cnefe-2022` neste produto.
+          description: Unidades desta página (complemento, espécie, id CNEFE).
+        total:
+          type: integer
+          description: Quantas unidades batem o filtro.
+        limit:
+          type: integer
+          description: Teto desta página.
+        offset:
+          type: integer
+          description: Deslocamento pedido.
+        hasMore:
+          type: boolean
+          description: '`true` se ainda há unidade depois desta página.'
         cobertura:
           allOf:
           - $ref: '#/components/schemas/Cobertura'
           description: UFs ingeridas agora.
         _links:
           type: object
-          description: '`self`, `empresas` e `unidades` absolutos.'
+          description: '`self` desta página e `cep` do lookup.'
       required:
       - cep
-      - pontos
-      - resumo
-      - fonte
+      - items
+      - total
+      - limit
+      - offset
+      - hasMore
       - cobertura
       - _links
-      description: Pontos CNEFE de um CEP, com resumo e cobertura.
+      description: Unidades CNEFE de um CEP (ou de um logradouro+número), paginadas.
     Resumo:
       type: object
       properties:

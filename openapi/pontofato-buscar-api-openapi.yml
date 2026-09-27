@@ -47,21 +47,6 @@ paths:
       - Buscar
 components:
   schemas:
-    PaginaPonto:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Ponto'
-          description: Resultados (teto 50).
-        total:
-          type: integer
-          description: Quantos vieram nesta página.
-      required:
-      - items
-      - total
-      description: Lista paginada de pontos.
     Ponto:
       type: object
       properties:
@@ -245,6 +230,21 @@ components:
       - _links
       - _origem
       description: 'Um endereço CNEFE: número, coordenada IBGE e o fato que veio no CSV.'
+    PaginaPonto:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Ponto'
+          description: Resultados (teto 50).
+        total:
+          type: integer
+          description: Quantos vieram nesta página.
+      required:
+      - items
+      - total
+      description: Lista paginada de pontos.
     EspecieContagem:
       type: object
       properties:

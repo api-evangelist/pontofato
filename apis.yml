@@ -22,7 +22,7 @@ tags:
   - proximity search
   - radius search
   - Open Government Data
-  - agent-native
+  - Agent-Native
   - MCP
   - x402-micropayments
 tags_raw:
@@ -46,7 +46,6 @@ apis:
   name: PontoFato Apis.json API
   description: The Apis.json API from PontoFato — 1 operation(s) for apis.json.
   humanURL: https://pontofato.com/api/
-  baseURL: https://pontofato.com
   tags:
   - APIs.json
   tags_raw:
@@ -66,7 +65,6 @@ apis:
   name: PontoFato Buscar API
   description: The Buscar API from PontoFato — 1 operation(s) for buscar.
   humanURL: https://pontofato.com/api/
-  baseURL: https://pontofato.com
   tags:
   - Buscar
   properties:
@@ -84,7 +82,6 @@ apis:
   name: PontoFato Cep API
   description: The Cep API from PontoFato — 2 operation(s) for cep.
   humanURL: https://pontofato.com/api/
-  baseURL: https://pontofato.com
   tags:
   - CEP
   tags_raw:
@@ -104,7 +101,6 @@ apis:
   name: PontoFato Contact API
   description: The Contact API from PontoFato — 1 operation(s) for contact.
   humanURL: https://pontofato.com/api/
-  baseURL: https://pontofato.com
   tags:
   - Contact
   properties:
@@ -122,7 +118,6 @@ apis:
   name: PontoFato Credito API
   description: The Credito API from PontoFato — 1 operation(s) for credito.
   humanURL: https://pontofato.com/api/
-  baseURL: https://pontofato.com
   tags:
   - Credito
   properties:
@@ -140,7 +135,6 @@ apis:
   name: PontoFato Empresas API
   description: The Empresas API from PontoFato — 1 operation(s) for empresas.
   humanURL: https://pontofato.com/api/
-  baseURL: https://pontofato.com
   tags:
   - Empresas
   properties:
@@ -158,7 +152,6 @@ apis:
   name: PontoFato Health API
   description: The Health API from PontoFato — 1 operation(s) for health.
   humanURL: https://pontofato.com/api/
-  baseURL: https://pontofato.com
   tags:
   - Health
   properties:
@@ -176,7 +169,6 @@ apis:
   name: PontoFato Local API
   description: The Local API from PontoFato — 1 operation(s) for local.
   humanURL: https://pontofato.com/api/
-  baseURL: https://pontofato.com
   tags:
   - Local
   properties:
@@ -194,7 +186,6 @@ apis:
   name: PontoFato MCP API
   description: The Mcp API from PontoFato — 1 operation(s) for mcp.
   humanURL: https://pontofato.com/api/
-  baseURL: https://pontofato.com
   tags:
   - MCP
   tags_raw:
@@ -214,7 +205,6 @@ apis:
   name: PontoFato Metrics API
   description: The Metrics API from PontoFato — 1 operation(s) for metrics.
   humanURL: https://pontofato.com/api/
-  baseURL: https://pontofato.com
   tags:
   - Metrics
   properties:
@@ -232,7 +222,6 @@ apis:
   name: PontoFato Okf API
   description: The Okf API from PontoFato — 1 operation(s) for okf.
   humanURL: https://pontofato.com/api/
-  baseURL: https://pontofato.com
   tags:
   - Okf
   properties:
@@ -250,7 +239,6 @@ apis:
   name: PontoFato Ponto Fato API
   description: The PontoFato API from PontoFato — 1 operation(s) for pontofato.
   humanURL: https://pontofato.com/api/
-  baseURL: https://pontofato.com
   tags:
   - PontoFato
   properties:
@@ -268,7 +256,6 @@ apis:
   name: PontoFato Proximo API
   description: The Proximo API from PontoFato — 1 operation(s) for proximo.
   humanURL: https://pontofato.com/api/
-  baseURL: https://pontofato.com
   tags:
   - Proximo
   properties:
@@ -286,7 +273,6 @@ apis:
   name: PontoFato Raio API
   description: The Raio API from PontoFato — 1 operation(s) for raio.
   humanURL: https://pontofato.com/api/
-  baseURL: https://pontofato.com
   tags:
   - Raio
   properties:
@@ -304,7 +290,6 @@ apis:
   name: PontoFato Vizinhanca API
   description: The Vizinhanca API from PontoFato — 1 operation(s) for vizinhanca.
   humanURL: https://pontofato.com/api/
-  baseURL: https://pontofato.com
   tags:
   - Vizinhanca
   properties:
@@ -322,7 +307,6 @@ apis:
   name: PontoFato .well Known API
   description: The .well Known API from PontoFato — 1 operation(s) for .well known.
   humanURL: https://pontofato.com/api/
-  baseURL: https://pontofato.com
   tags:
   - .well Known
   properties:
