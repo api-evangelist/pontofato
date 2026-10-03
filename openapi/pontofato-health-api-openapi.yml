@@ -26,21 +26,6 @@ paths:
       - Health
 components:
   schemas:
-    Cobertura:
-      type: object
-      properties:
-        ufs:
-          type: array
-          items:
-            type: string
-          description: Siglas presentes no disco, em ordem.
-        completa:
-          type: boolean
-          description: '`true` só com as 27 UFs.'
-      required:
-      - ufs
-      - completa
-      description: Quais UFs já têm sqlite na origem.
     Saude:
       type: object
       properties:
@@ -67,3 +52,18 @@ components:
       - pontos
       - build
       description: Se a origem sqlite está no ar e o quanto da malha já foi ingerida.
+    Cobertura:
+      type: object
+      properties:
+        ufs:
+          type: array
+          items:
+            type: string
+          description: Siglas presentes no disco, em ordem.
+        completa:
+          type: boolean
+          description: '`true` só com as 27 UFs.'
+      required:
+      - ufs
+      - completa
+      description: Quais UFs já têm sqlite na origem.

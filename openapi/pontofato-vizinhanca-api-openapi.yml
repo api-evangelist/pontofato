@@ -120,6 +120,28 @@ components:
       - endereco
       - distancia_m
       description: Um estabelecimento aberto desde `desde`, sem contato e sem sócio.
+    ContagemCnae:
+      type: object
+      properties:
+        cnae:
+          type: integer
+          description: Subclasse CNAE (7 dígitos).
+        descricao:
+          type: string
+          description: Descrição oficial da subclasse.
+          nullable: true
+        ativas:
+          type: integer
+          description: Estabelecimentos ativos neste CNAE no raio.
+        abertas_desde:
+          type: integer
+          description: Dos ativos, quantos abriram desde `desde`.
+      required:
+      - cnae
+      - descricao
+      - ativas
+      - abertas_desde
+      description: Uma classe de CNAE no raio.
     Vizinhanca:
       type: object
       properties:
@@ -182,25 +204,3 @@ components:
       - fonte
       - _links
       description: 'O que a Receita sabe sobre os CEPs dentro do raio: contagens, classes e aberturas recentes.'
-    ContagemCnae:
-      type: object
-      properties:
-        cnae:
-          type: integer
-          description: Subclasse CNAE (7 dígitos).
-        descricao:
-          type: string
-          description: Descrição oficial da subclasse.
-          nullable: true
-        ativas:
-          type: integer
-          description: Estabelecimentos ativos neste CNAE no raio.
-        abertas_desde:
-          type: integer
-          description: Dos ativos, quantos abriram desde `desde`.
-      required:
-      - cnae
-      - descricao
-      - ativas
-      - abertas_desde
-      description: Uma classe de CNAE no raio.
