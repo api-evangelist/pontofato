@@ -74,52 +74,6 @@ paths:
       - Vizinhanca
 components:
   schemas:
-    Abertura:
-      type: object
-      properties:
-        cnpj:
-          type: string
-          description: 14 dígitos.
-        cnpjFormatted:
-          type: string
-          description: CNPJ com pontuação.
-        nome:
-          type: string
-          description: Nome fantasia ou, na falta, razão social.
-          nullable: true
-        razaoSocial:
-          type: string
-          description: Razão social.
-          nullable: true
-        nomeFantasia:
-          type: string
-          description: Nome fantasia declarado na Receita, quando a empresa tem um.
-          nullable: true
-        cnae:
-          type: object
-          description: '`codigo` e `descricao` da atividade principal.'
-          nullable: true
-        dataInicio:
-          type: string
-          description: Data de início de atividade, ISO.
-        endereco:
-          type: object
-          description: '`tipoLogradouro`, `logradouro`, `numero`, `bairro`, `cep` formatado.'
-        distancia_m:
-          type: integer
-          description: Distância do centro ao CEP deste estabelecimento.
-          nullable: true
-      required:
-      - cnpj
-      - cnpjFormatted
-      - nome
-      - razaoSocial
-      - nomeFantasia
-      - cnae
-      - dataInicio
-      - endereco
-      - distancia_m
-      description: Um estabelecimento aberto desde `desde`, sem contato e sem sócio.
     ContagemCnae:
       type: object
       properties:
@@ -204,3 +158,49 @@ components:
       - fonte
       - _links
       description: 'O que a Receita sabe sobre os CEPs dentro do raio: contagens, classes e aberturas recentes.'
+    Abertura:
+      type: object
+      properties:
+        cnpj:
+          type: string
+          description: 14 dígitos.
+        cnpjFormatted:
+          type: string
+          description: CNPJ com pontuação.
+        nome:
+          type: string
+          description: Nome fantasia ou, na falta, razão social.
+          nullable: true
+        razaoSocial:
+          type: string
+          description: Razão social.
+          nullable: true
+        nomeFantasia:
+          type: string
+          description: Nome fantasia declarado na Receita, quando a empresa tem um.
+          nullable: true
+        cnae:
+          type: object
+          description: '`codigo` e `descricao` da atividade principal.'
+          nullable: true
+        dataInicio:
+          type: string
+          description: Data de início de atividade, ISO.
+        endereco:
+          type: object
+          description: '`tipoLogradouro`, `logradouro`, `numero`, `bairro`, `cep` formatado.'
+        distancia_m:
+          type: integer
+          description: Distância do centro ao CEP deste estabelecimento.
+          nullable: true
+      required:
+      - cnpj
+      - cnpjFormatted
+      - nome
+      - razaoSocial
+      - nomeFantasia
+      - cnae
+      - dataInicio
+      - endereco
+      - distancia_m
+      description: Um estabelecimento aberto desde `desde`, sem contato e sem sócio.
