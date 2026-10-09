@@ -29,3 +29,29 @@ plans:
     includes: >-
       POST /api/credito?usd={1,5,10,25} pays once via x402 and returns a bearer cred_ token
       valid across all the provider's products; GET /api/credito returns balance + statement.
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  - subscription
+  units: []
+  plans:
+  - name: Free
+    access: other
+    model: free
+    model_how: derived
+    units: []
+    periods: []
+  - name: Pay-per-request (x402)
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: Prepaid credit
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
