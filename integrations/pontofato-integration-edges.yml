@@ -14,7 +14,7 @@ edges:
     registered_name: com.pontofato/pontofato
     register_id: com.pontofato/pontofato
     detected_by: sweep-agent-tools.py
-    detected: '2026-10-14'
+    detected: '2026-10-15'
   mcp_registry:
     servers:
     - com.pontofato/pontofato
