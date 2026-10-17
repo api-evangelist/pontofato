@@ -43,29 +43,6 @@ paths:
       - Empresas
 components:
   schemas:
-    Empresas:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Empresa'
-          description: Cards da origem CNPJ (teto 50 por página).
-        total:
-          type: integer
-          description: Tamanho desta página, ou total se a origem mandar.
-        hasMore:
-          type: boolean
-          description: '`true` quando a origem tem mais estabelecimentos além do teto.'
-        page:
-          type: integer
-          description: Página 0-based pedida à origem.
-      required:
-      - items
-      - total
-      - hasMore
-      - page
-      description: Estabelecimentos da Receita neste CEP, via api-cnpj no c3.
     Empresa:
       type: object
       properties:
@@ -114,3 +91,26 @@ components:
       - bairro
       - cnae
       description: Card da busca por CEP na origem CNPJ — não é a ficha completa do Radar.
+    Empresas:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Empresa'
+          description: Cards da origem CNPJ (teto 50 por página).
+        total:
+          type: integer
+          description: Tamanho desta página, ou total se a origem mandar.
+        hasMore:
+          type: boolean
+          description: '`true` quando a origem tem mais estabelecimentos além do teto.'
+        page:
+          type: integer
+          description: Página 0-based pedida à origem.
+      required:
+      - items
+      - total
+      - hasMore
+      - page
+      description: Estabelecimentos da Receita neste CEP, via api-cnpj no c3.
