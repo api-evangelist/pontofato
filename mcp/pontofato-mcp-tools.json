@@ -1,0 +1,750 @@
+{
+  "endpoint": "https://pontofato.com/mcp",
+  "captured": "2026-10-20",
+  "method": "initialize + tools/list (anonymous, no tool called; roadmap#992)",
+  "protocol_version": "2025-06-18",
+  "server_info": {
+    "name": "PontoFato",
+    "version": "78e0bd5f"
+  },
+  "result": {
+    "tools": [
+      {
+        "name": "api_index",
+        "title": "API index",
+        "description": "The API index: each route and how to connect the MCP.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {}
+        },
+        "annotations": {
+          "title": "API index",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true
+        },
+        "securitySchemes": [
+          {
+            "type": "noauth"
+          },
+          {
+            "type": "oauth2",
+            "scopes": [
+              "mcp"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "health",
+        "title": "Service health",
+        "description": "Service availability and the address coverage by state (UF).",
+        "inputSchema": {
+          "type": "object",
+          "properties": {}
+        },
+        "annotations": {
+          "title": "Service health",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true
+        },
+        "securitySchemes": [
+          {
+            "type": "noauth"
+          },
+          {
+            "type": "oauth2",
+            "scopes": [
+              "mcp"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "cep",
+        "title": "Addresses of a CEP",
+        "description": "The addresses of a CEP (Brazilian postal code), with latitude and longitude.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "cep": {
+              "type": "string",
+              "description": "8 digits, with or without the hyphen."
+            }
+          },
+          "required": [
+            "cep"
+          ]
+        },
+        "annotations": {
+          "title": "Addresses of a CEP",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true
+        },
+        "securitySchemes": [
+          {
+            "type": "noauth"
+          },
+          {
+            "type": "oauth2",
+            "scopes": [
+              "mcp"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "proximo",
+        "title": "Nearest address",
+        "description": "The address nearest to a latitude and longitude. A missing or empty value does not become zero. `(0,0)` is in the Gulf of Guinea, and the tool uses it only when you send it.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "lat": {
+              "type": "number",
+              "description": "Latitude (WGS84), −90 to 90."
+            },
+            "lon": {
+              "type": "number",
+              "description": "Longitude (WGS84), −180 to 180."
+            }
+          },
+          "required": [
+            "lat",
+            "lon"
+          ]
+        },
+        "annotations": {
+          "title": "Nearest address",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true
+        },
+        "securitySchemes": [
+          {
+            "type": "noauth"
+          },
+          {
+            "type": "oauth2",
+            "scopes": [
+              "mcp"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "buscar",
+        "title": "Find a street",
+        "description": "Finds a street by name (or by neighborhood) in Brazil, up to 20 results: one for each street in each city. When the query has a house number that exists, the result has the point of that number.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "q": {
+              "type": "string",
+              "description": "Street name, 3 to 200 characters. A house number and a city in the query also count."
+            },
+            "uf": {
+              "type": "string",
+              "description": "Limits the search to one state (UF)."
+            },
+            "cidade": {
+              "type": "string",
+              "description": "Name or part of the name of the city."
+            }
+          },
+          "required": [
+            "q"
+          ]
+        },
+        "annotations": {
+          "title": "Find a street",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true
+        },
+        "securitySchemes": [
+          {
+            "type": "noauth"
+          },
+          {
+            "type": "oauth2",
+            "scopes": [
+              "mcp"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "unidades",
+        "title": "Units at a CEP",
+        "description": "The units at a CEP (apartment, store), with the complement and the type, in pages. The CEP lookup groups the addresses by street and number; this tool returns each unit. Without `logradouro` and `numero`, it pages through the whole CEP.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "cep": {
+              "type": "string",
+              "description": "8 digits, with or without the hyphen."
+            },
+            "logradouro": {
+              "type": "string",
+              "description": "The street exactly as in the lookup (type and name)."
+            },
+            "numero": {
+              "type": "string",
+              "description": "The building number in the result."
+            },
+            "limit": {
+              "type": "number",
+              "description": "Items per page, 50 at most.",
+              "default": 50
+            },
+            "offset": {
+              "type": "number",
+              "description": "Offset, starting at 0.",
+              "default": 0
+            }
+          },
+          "required": [
+            "cep"
+          ]
+        },
+        "annotations": {
+          "title": "Units at a CEP",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true
+        },
+        "securitySchemes": [
+          {
+            "type": "noauth"
+          },
+          {
+            "type": "oauth2",
+            "scopes": [
+              "mcp"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "empresas",
+        "title": "Companies at a CEP",
+        "description": "The companies registered at a CEP, up to 50 per page.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "cep": {
+              "type": "string",
+              "description": "8 digits, with or without the hyphen."
+            },
+            "page": {
+              "type": "number",
+              "description": "Page number, starting at 0, with 50 companies per page.",
+              "default": 0
+            }
+          },
+          "required": [
+            "cep"
+          ]
+        },
+        "annotations": {
+          "title": "Companies at a CEP",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true
+        },
+        "securitySchemes": [
+          {
+            "type": "noauth"
+          },
+          {
+            "type": "oauth2",
+            "scopes": [
+              "mcp"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "raio",
+        "title": "CEPs within a radius",
+        "description": "The CEPs within N meters of a point (a CEP, or a latitude and longitude), with the distance and the addresses. Free.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "cep": {
+              "type": "string",
+              "description": "Center by CEP (8 digits)."
+            },
+            "lat": {
+              "type": "number",
+              "description": "Latitude of the center, when there is no `cep`."
+            },
+            "lon": {
+              "type": "number",
+              "description": "Longitude of the center, when there is no `cep`."
+            },
+            "raio": {
+              "type": "number",
+              "description": "Meters, 1 to 2000 (default 500).",
+              "default": 500
+            }
+          }
+        },
+        "annotations": {
+          "title": "CEPs within a radius",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true
+        },
+        "securitySchemes": [
+          {
+            "type": "noauth"
+          },
+          {
+            "type": "oauth2",
+            "scopes": [
+              "mcp"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "vizinhanca",
+        "title": "Companies in a neighborhood",
+        "description": "The active, opened and closed companies within a radius in meters, by CNAE (activity code), with the recent openings and the distance.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "cep": {
+              "type": "string",
+              "description": "Center by CEP (8 digits)."
+            },
+            "lat": {
+              "type": "number",
+              "description": "Latitude of the center, when there is no `cep`."
+            },
+            "lon": {
+              "type": "number",
+              "description": "Longitude of the center, when there is no `cep`."
+            },
+            "raio": {
+              "type": "number",
+              "description": "Meters, 1 to 2000 (default 500).",
+              "default": 500
+            },
+            "cnae": {
+              "type": "string",
+              "description": "CNAE prefix: 2, 5 or 7 digits."
+            },
+            "desde": {
+              "type": "string",
+              "description": "ISO date. The default is 90 days before the date of the data."
+            }
+          }
+        },
+        "annotations": {
+          "title": "Companies in a neighborhood",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true
+        },
+        "securitySchemes": [
+          {
+            "type": "noauth"
+          },
+          {
+            "type": "oauth2",
+            "scopes": [
+              "mcp"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "contact",
+        "title": "Contact",
+        "description": "Write to the people behind the product: a question, or a sponsorship/partnership/advertising proposal. One route for a question and for a sponsorship, partnership or ad proposal (`tipo`, with the placements of `GET /api/partners`). One message every 10 seconds per network: one that arrives sooner waits its turn and then goes out — no error. The message reaches the team by e-mail, with `email` as the reply address. For voice, send multipart/form-data: `dados` is this JSON (up to 32 KiB), and `audio` is one WebM, Ogg or M4A audio file (up to 2 MB). Audio can replace message. The browser records up to two minutes. Audio is attached to the owner's e-mail.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "What to call the person writing."
+            },
+            "email": {
+              "type": "string",
+              "description": "Where to reply."
+            },
+            "message": {
+              "type": "string",
+              "description": "What you want to say."
+            },
+            "whatsapp": {
+              "type": "string",
+              "description": "Optional reply number with country code, such as +5561999999999."
+            },
+            "prefer_whatsapp": {
+              "type": "boolean",
+              "description": "Request a WhatsApp reply. Requires whatsapp."
+            },
+            "tipo": {
+              "type": "string",
+              "enum": [
+                "patrocinio",
+                "parceria",
+                "anuncio",
+                "consultoria"
+              ],
+              "description": "Proposal: `patrocinio`, `parceria`, `anuncio` or `consultoria`. Turns on the fields below."
+            },
+            "empresa": {
+              "type": "string",
+              "description": "Who is proposing, when it is a company."
+            },
+            "site": {
+              "type": "string",
+              "description": "Website of who is proposing."
+            },
+            "orcamento": {
+              "type": "string",
+              "enum": [
+                "ate_100",
+                "100_500",
+                "500_2000",
+                "2000_mais",
+                "a_combinar",
+                "ate_2000",
+                "2000_5000",
+                "5000_10000",
+                "10000_mais",
+                "nao_sei"
+              ],
+              "description": "Advertising: `ate_100`, `100_500`, `500_2000`, `2000_mais` or `a_combinar`. Consulting, in US dollars: `ate_2000`, `2000_5000`, `5000_10000`, `10000_mais` or `nao_sei`."
+            },
+            "espaco": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Placement ids from `GET /api/partners`, up to 6."
+            },
+            "duracao": {
+              "type": "string",
+              "enum": [
+                "30",
+                "90",
+                "365"
+              ],
+              "description": "Exposure in days: `30`, `90` or `365`."
+            },
+            "pagamento": {
+              "type": "string",
+              "enum": [
+                "usdc",
+                "deposito",
+                "a_combinar"
+              ]
+            },
+            "projeto": {
+              "type": "string",
+              "enum": [
+                "llm_privado",
+                "voz",
+                "dados_sensiveis",
+                "gpu",
+                "integracao",
+                "outro"
+              ],
+              "description": "Consulting: the kind of project (`llm_privado`, `voz`, `dados_sensiveis`, `gpu`, `integracao` or `outro`)."
+            },
+            "prazo": {
+              "type": "string",
+              "enum": [
+                "agora",
+                "1_mes",
+                "1_3_meses",
+                "explorando"
+              ],
+              "description": "Consulting: when to start (`agora`, `1_mes`, `1_3_meses` or `explorando`)."
+            },
+            "formato": {
+              "type": "string",
+              "enum": [
+                "projeto",
+                "mensal",
+                "assessoria"
+              ],
+              "description": "Consulting: `projeto` (per scope), `mensal` (monthly) or `assessoria` (advisory)."
+            },
+            "pais": {
+              "type": "string",
+              "description": "Consulting: the country of the person asking."
+            },
+            "fuso": {
+              "type": "string",
+              "description": "Consulting: the IANA time zone, such as `America/New_York`."
+            },
+            "horarios": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Consulting: up to 3 times for the call, `YYYY-MM-DDTHH:MM` in that time zone."
+            }
+          },
+          "required": [
+            "name",
+            "email",
+            "message"
+          ]
+        },
+        "annotations": {
+          "title": "Contact",
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": false
+        },
+        "securitySchemes": [
+          {
+            "type": "noauth"
+          },
+          {
+            "type": "oauth2",
+            "scopes": [
+              "mcp"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "consulta_cadastro",
+        "title": "Company registration record",
+        "description": "Name, status, activity and address of a Brazilian company by CNPJ. It does not count against the daily free limit, does not show contacts or partners and runs no extra checks. The origin's protection limit still applies. For sanctions, tax status and a live CNIA check, use consulta_cnpj.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "cnpj": {
+              "type": "string",
+              "description": "CNPJ, with or without punctuation."
+            }
+          },
+          "required": [
+            "cnpj"
+          ],
+          "additionalProperties": false
+        },
+        "annotations": {
+          "title": "Company registration record",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true
+        },
+        "securitySchemes": [
+          {
+            "type": "noauth"
+          },
+          {
+            "type": "oauth2",
+            "scopes": [
+              "mcp"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "consulta_endereco",
+        "title": "Addresses of a CEP",
+        "description": "Addresses and companies at a CEP (Brazilian postal code), without counting against the daily free limit. Up to 20 addresses and 20 companies; `pontos_total` has the total number of addresses. The origin's protection limit still applies.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "cep": {
+              "type": "string",
+              "description": "CEP, with or without the hyphen."
+            }
+          },
+          "required": [
+            "cep"
+          ],
+          "additionalProperties": false
+        },
+        "annotations": {
+          "title": "Addresses of a CEP",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true
+        },
+        "securitySchemes": [
+          {
+            "type": "noauth"
+          },
+          {
+            "type": "oauth2",
+            "scopes": [
+              "mcp"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "consulta_sugerir",
+        "title": "Find a company",
+        "description": "Suggests up to 8 Brazilian companies for a CNPJ, company name, partner, phone or e-mail, ordered by how well they match. It does not count against the daily free limit and does not show contacts. `incompleto` means one of the sources did not answer.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "q": {
+              "type": "string",
+              "minLength": 3,
+              "maxLength": 120,
+              "description": "A name of 3 to 120 characters, a CNPJ, a phone with area code or a full e-mail."
+            }
+          },
+          "required": [
+            "q"
+          ],
+          "additionalProperties": false
+        },
+        "annotations": {
+          "title": "Find a company",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true
+        },
+        "securitySchemes": [
+          {
+            "type": "noauth"
+          },
+          {
+            "type": "oauth2",
+            "scopes": [
+              "mcp"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "consulta_cnpj",
+        "title": "Check a company (live)",
+        "description": "Brazilian company record by CNPJ from the Federal Revenue (Receita Federal), with the special status when there is one (bankruptcy, judicial recovery, liquidation); its sanctions (CEIS, CNEP, CEPIM, leniency agreements, TCU and the CNJ's CNIA, checked live); partners on the politically exposed persons list (CGU); tax status (federal tax debt, installment agreements, tax incentives and construction works); the Federal Revenue chronic tax debtor list (`devedorContumaz.consta`: barred from public tenders); environmental and labor risk (forced-labor list, Ibama embargoes and fines); government contracts (PNCP, federal contracts since 2013 and sales to municipalities in the state of SP, from TCE-SP) and BNDES financing; registrations with regulators and official registries (CVM, Central Bank, ANS, ANTT, ANP, ANEEL, Anatel, Anvisa, CNES, Cadastur, Ibama, ANAC and SICAF); CVM investment funds; and the address on the map (CNEFE/IBGE). Accepts the numeric and the alphanumeric CNPJ. Personal data in the record comes masked. `sancoes` has what public registries record against the whole company (the CNPJ root), updated daily: useful to vet suppliers. 10 free lookups per day per network; after that, the tool answers `free_limit` with `resets_at`.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "cnpj": {
+              "type": "string",
+              "description": "CNPJ, with or without punctuation."
+            },
+            "temas": {
+              "type": "string",
+              "maxLength": 240,
+              "description": "Comma-separated topics: dados, socios, sancoes, fiscal, divida, obras, trabalho, ibama, contratos, pep, vendas, campanhas, prefeituras, sicaf, aeronaves, fundos, rntrc, bndes, registros; todos. Omit for the full record. Basic company data always stays. Unrequested blocks are omitted; null means unchecked. Personal data remains masked."
+            }
+          },
+          "required": [
+            "cnpj"
+          ],
+          "additionalProperties": false
+        },
+        "annotations": {
+          "title": "Check a company (live)",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true
+        },
+        "securitySchemes": [
+          {
+            "type": "noauth"
+          },
+          {
+            "type": "oauth2",
+            "scopes": [
+              "mcp"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "consulta_cep",
+        "title": "Check a CEP",
+        "description": "Addresses at a CEP (Brazilian postal code) with coordinates (CNEFE/IBGE) and the companies registered there. Returns up to 20 addresses and up to 20 companies; the total number of addresses is in `pontos_total`. 10 free lookups per day per network; after that, the tool answers `free_limit` with `resets_at`.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "cep": {
+              "type": "string",
+              "description": "CEP with 8 digits."
+            }
+          },
+          "required": [
+            "cep"
+          ],
+          "additionalProperties": false
+        },
+        "annotations": {
+          "title": "Check a CEP",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true
+        },
+        "securitySchemes": [
+          {
+            "type": "noauth"
+          },
+          {
+            "type": "oauth2",
+            "scopes": [
+              "mcp"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "sugerir",
+        "title": "Suggest a CEP or a street",
+        "description": "Suggestions for a partial CEP or a street name, with the neighborhood and the city. Up to eight places. A CEP accepts a prefix of 3 to 8 digits, with an optional hyphen after the fifth digit. A street search accepts an optional state (UF) and city. One address represents each CEP; the full lookup returns the others. The reference is CNEFE 2022, and it does not certify the current postal CEP.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "q": {
+              "type": "string",
+              "minLength": 3,
+              "maxLength": 160,
+              "description": "Partial CEP or street, 3 to 160 characters."
+            },
+            "uf": {
+              "type": "string",
+              "description": "State (UF) abbreviation, to limit the street search."
+            },
+            "cidade": {
+              "type": "string",
+              "description": "City, to limit the street search."
+            }
+          },
+          "required": [
+            "q"
+          ]
+        },
+        "annotations": {
+          "title": "Suggest a CEP or a street",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true
+        },
+        "securitySchemes": [
+          {
+            "type": "noauth"
+          },
+          {
+            "type": "oauth2",
+            "scopes": [
+              "mcp"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
