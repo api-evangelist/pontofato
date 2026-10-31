@@ -64,4 +64,138 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Brazilian address/location-intelligence API mapping CEP (postal code) or address to IBGE CNEFE census points with latitude/longitude, joined with Receita Federal business establishments. Offers proximity/radius search, full-text street search, and companies-at-location lookups. Agent-first provider with a hosted MCP server, llms.txt, RFC 9727 api-catalog, APIs.json, an official MCP registry listing, and x402 micropayments (USDC on Base) on its paid routes.
+Brazilian address/location-intelligence API mapping CEP (postal code) or address to IBGE CNEFE census points with latitude/longitude, joined with Receita Federal business establishments. Offers proximity/radius search, full-text street search, and companies-at-location lookups. Agent-first provider with a hosted MCP server and llms.txt.
+
+**Areas:** Brazilian CEP · address geocoding · IBGE CNEFE · Geospatial · latitude/longitude · CNPJ · Receita Federal · Business Registry · Location Intelligence · proximity search · radius search · Open Government Data
+
+## PontoFato on APIs.io
+
+Everything profiled for PontoFato is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/pontofato/](https://apis.io/providers/pontofato/)** — or go straight to one of the APIs or properties below.
+
+### APIs (16)
+
+- [PontoFato Apis.json API](https://apis.io/apis/pontofato/pontofato-apis-json-api/) — The Apis.json API from PontoFato — 1 operation(s) for apis.json.
+- [PontoFato Buscar API](https://apis.io/apis/pontofato/pontofato-buscar-api/) — The Buscar API from PontoFato — 1 operation(s) for buscar.
+- [PontoFato Cep API](https://apis.io/apis/pontofato/pontofato-cep-api/) — The Cep API from PontoFato — 2 operation(s) for cep.
+- [PontoFato Contact API](https://apis.io/apis/pontofato/pontofato-contact-api/) — The Contact API from PontoFato — 1 operation(s) for contact.
+- [PontoFato Credito API](https://apis.io/apis/pontofato/pontofato-credito-api/) — The Credito API from PontoFato — 1 operation(s) for credito.
+- [PontoFato Empresas API](https://apis.io/apis/pontofato/pontofato-empresas-api/) — The Empresas API from PontoFato — 1 operation(s) for empresas.
+- [PontoFato Health API](https://apis.io/apis/pontofato/pontofato-health-api/) — The Health API from PontoFato — 1 operation(s) for health.
+- [PontoFato Local API](https://apis.io/apis/pontofato/pontofato-local-api/) — The Local API from PontoFato — 1 operation(s) for local.
+- [PontoFato MCP API](https://apis.io/apis/pontofato/pontofato-mcp-api/) — The Mcp API from PontoFato — 1 operation(s) for mcp.
+- [PontoFato Metrics API](https://apis.io/apis/pontofato/pontofato-metrics-api/) — The Metrics API from PontoFato — 1 operation(s) for metrics.
+- [PontoFato Okf API](https://apis.io/apis/pontofato/pontofato-okf-api/) — The Okf API from PontoFato — 1 operation(s) for okf.
+- [PontoFato Ponto Fato API](https://apis.io/apis/pontofato/pontofato-pontofato-api/) — The PontoFato API from PontoFato — 1 operation(s) for pontofato.
+- [PontoFato Proximo API](https://apis.io/apis/pontofato/pontofato-proximo-api/) — The Proximo API from PontoFato — 1 operation(s) for proximo.
+- [PontoFato Raio API](https://apis.io/apis/pontofato/pontofato-raio-api/) — The Raio API from PontoFato — 1 operation(s) for raio.
+- [PontoFato Vizinhanca API](https://apis.io/apis/pontofato/pontofato-vizinhanca-api/) — The Vizinhanca API from PontoFato — 1 operation(s) for vizinhanca.
+- [PontoFato .well Known API](https://apis.io/apis/pontofato/pontofato-well-known-api/) — The .well Known API from PontoFato — 1 operation(s) for .well known.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [mcp](https://apis.io/servers/pontofato/mcp/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Pontofato Agentic Access](https://apis.io/agentic-access/pontofato/pontofato-agentic-access/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Pontofato Openapi Overlay](https://apis.io/overlays/pontofato/pontofato-openapi-overlay/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Pontofato Authentication](https://apis.io/security/pontofato/pontofato-authentication/)
+- [Pontofato Domain Security](https://apis.io/security/pontofato/pontofato-domain-security/)
+- [Pontofato Vulnerability Disclosure](https://apis.io/security/pontofato/pontofato-vulnerability-disclosure/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Pontofato Plans Pricing](https://apis.io/plans/pontofato/pontofato-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Pontofato Rate Limits](https://apis.io/rate-limits/pontofato/pontofato-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://pontofato.com/)
+- [Getting started](https://pontofato.com/#agentes)
+- [Pricing](https://pontofato.com/#precos)
+- [Support](https://pontofato.com/#contato)
+- [Security](https://pontofato.com/.well-known/security.txt)
+- [Terms of service](https://pontofato.com/termos)
+- [Privacy policy](https://pontofato.com/privacidade)
+
+## API Evangelist rating
+
+**Kin Score 44.7** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.7 |
+| Contract quality | 44.8 |
+| Contract governance | 18.2 |
+| Operational transparency | 26.3 |
+| Developer ergonomics | 38.7 |
+| Access clarity | 57.9 |
+
+**Agent readiness 37.2** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | verified |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | yes |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | partial |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 30.4** — Government & Public Sector
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/pontofato/](https://apis.io/providers/pontofato/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for PontoFato: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/pontofato/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
