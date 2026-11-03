@@ -30,7 +30,7 @@ plans:
       POST /api/credito?usd={1,5,10,25} pays once via x402 and returns a bearer cred_ token
       valid across all the provider's products; GET /api/credito returns balance + statement.
 x-canonical:
-  generated: '2026-11-01'
+  generated: '2026-11-02'
   vocabulary: engine/economics/plans-canonical.yml
   models:
   - free
