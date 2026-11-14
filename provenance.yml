@@ -5,10 +5,19 @@ artifacts:
   agentic-access/pontofato-agentic-access.yml:
     method: generated
     evidence: declared in the artifact
+  ai-preferences/pontofato-ai-preferences.yml:
+    method: harvested
+    evidence: declared in the artifact
   authentication/pontofato-authentication.yml:
     method: searched
     evidence: declared in the artifact
   capabilities/pontofato-capability-edges.yml:
+    method: unknown
+    evidence: no authorship recorded
+  certification/observations-2026-11-11.jsonl:
+    method: unknown
+    evidence: no authorship recorded
+  certification/status.yml:
     method: unknown
     evidence: no authorship recorded
   conformance/pontofato-conformance.yml:
@@ -17,8 +26,14 @@ artifacts:
   conventions/pontofato-conventions.yml:
     method: searched
     evidence: declared in the artifact
+  data-license/pontofato-data-license.yml:
+    method: harvested
+    evidence: declared in the artifact
   data-model/pontofato-data-model.yml:
     method: derived
+    evidence: declared in the artifact
+  eligibility/pontofato-eligibility.yml:
+    method: harvested
     evidence: declared in the artifact
   errors/pontofato-problem-types.yml:
     method: derived
@@ -33,12 +48,12 @@ artifacts:
     method: generated
     evidence: carries an API Evangelist house phrase
   integrations/pontofato-integration-edges.yml:
-    method: searched
-    evidence: declared in the artifact
+    method: unknown
+    evidence: no authorship recorded
   kin/checks-2026-10-23T222754.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
-  kin/checks-2026-11-02T082323.yml:
+  kin/checks-2026-11-06T143934.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-23T000603.yml:
@@ -102,6 +117,9 @@ artifacts:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-11-02T082323.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-11-06T143934.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   llms/pontofato-llms.txt:
@@ -168,6 +186,9 @@ artifacts:
   openapi/pontofato-well-known-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  overlays/pontofato-credito-api-certification-overlay.yaml:
+    method: derived
+    evidence: declared in the artifact
   overlays/pontofato-openapi-overlay.yaml:
     method: derived
     evidence: an API Evangelist overlay (title) over the provider's contract
@@ -179,6 +200,9 @@ artifacts:
     evidence: declared in the artifact
   plans/pontofato-plans-pricing.yml:
     method: searched
+    evidence: declared in the artifact
+  privacy/pontofato-privacy-policy.yml:
+    method: harvested
     evidence: declared in the artifact
   rate-limits/pontofato-rate-limits.yml:
     method: unknown
@@ -206,6 +230,9 @@ artifacts:
     evidence: declared in the artifact
   sla/pontofato-sla.yml:
     method: generated
+    evidence: declared in the artifact
+  terms/pontofato-terms-of-service.yml:
+    method: harvested
     evidence: declared in the artifact
   well-known/pontofato-api-catalog.json:
     method: unknown
